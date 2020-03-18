@@ -26,6 +26,7 @@ mix
         processCssUrls: false
     })
     .js('resources/assets/js/app.js', 'public/dist/js').extract(['vue', 'chart.js'])
+    .sourceMaps(false, 'inline-source-map')
     .scripts([
         'public/dist/js/app.js',
         'node_modules/es5-shim/es5-shim.js',
