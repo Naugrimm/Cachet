@@ -19,6 +19,7 @@ use GrahamCampbell\Binput\Facades\Binput;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Request;
+use McCool\LaravelAutoPresenter\Facades\AutoPresenter;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
@@ -82,6 +83,28 @@ class ComponentGroupController extends AbstractApiController
     public function show(ComponentGroup $group)
     {
         return $this->item($group);
+    }
+
+    /**
+     * Retrieves the badge for this component group from a shields.io server
+     *
+     * @param \CachetHQ\Cachet\Models\ComponentGroup $component
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function showBadge(ComponentGroup $group)
+    {
+        if (!config('badges.enabled')) {
+            abort(404);
+        }
+
+        $overwriteParams = collect(
+            Binput::only([
+                'color', 'label', 'link', 'labelColor', 'logo','style'
+            ])
+        )
+            ->filter();
+
+        return AutoPresenter::decorate($group)->toBadgeResponse($overwriteParams);
     }
 
     /**

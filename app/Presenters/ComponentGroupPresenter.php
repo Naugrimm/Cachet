@@ -12,7 +12,10 @@
 namespace CachetHQ\Cachet\Presenters;
 
 use CachetHQ\Cachet\Presenters\Traits\TimestampsTrait;
+use GuzzleHttp\Client;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use McCool\LaravelAutoPresenter\BasePresenter;
 use McCool\LaravelAutoPresenter\Facades\AutoPresenter;
 
@@ -140,5 +143,25 @@ class ComponentGroupPresenter extends BasePresenter implements Arrayable
     public function collapse_class_with_subscriptions($subscriptions)
     {
         return $this->has_subscriber($subscriptions) ? 'ion-ios-minus-outline' : 'ion-ios-plus-outline';
+    }
+
+    public function toBadgeResponse(Collection $overwriteParams = null)
+    {
+        $client = new Client([
+            'base_uri' => config('badges.base_uri').'/static/v1'
+        ]);
+
+
+        $params = collect([
+            'label' => $this->wrappedObject->name,
+            'message' => $this->lowest_human_status(),
+            'color' => Str::singular($this->lowest_status_color())
+        ])->merge($overwriteParams);
+
+        $response = $client->get('', [
+            'query' => $params->toArray(),
+        ]);
+
+        return response($response->getBody(), $response->getStatusCode(), $response->getHeaders());
     }
 }

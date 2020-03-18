@@ -141,6 +141,17 @@ class Component extends Model implements HasPresenter
     }
 
     /**
+     * Finds the component with the lowest status
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeLowest(Builder $query)
+    {
+        return $query->orderBy('status', 'desc');
+    }
+
+    /**
      * Finds all components by status.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query

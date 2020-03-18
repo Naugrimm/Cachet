@@ -13,7 +13,10 @@ namespace CachetHQ\Cachet\Presenters;
 
 use CachetHQ\Cachet\Presenters\Traits\TimestampsTrait;
 use CachetHQ\Cachet\Services\Dates\DateFactory;
+use GuzzleHttp\Client;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use McCool\LaravelAutoPresenter\BasePresenter;
 
 class ComponentPresenter extends BasePresenter implements Arrayable
@@ -79,5 +82,24 @@ class ComponentPresenter extends BasePresenter implements Arrayable
             'status_name' => $this->human_status(),
             'tags'        => $this->tags(),
         ]);
+    }
+
+    public function toBadgeResponse(Collection $overwriteParams = null)
+    {
+        $client = new Client([
+            'base_uri' => config('badges.base_uri').'/static/v1'
+        ]);
+
+        $params = collect([
+            'label' => $this->wrappedObject->name,
+            'message' => $this->human_status(),
+            'color' => Str::singular($this->status_color())
+        ])->merge($overwriteParams);
+
+        $response = $client->get('', [
+            'query' => $params->toArray(),
+        ]);
+
+        return response($response->getBody(), $response->getStatusCode(), $response->getHeaders());
     }
 }

@@ -19,6 +19,7 @@ use GrahamCampbell\Binput\Facades\Binput;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Request;
+use McCool\LaravelAutoPresenter\Facades\AutoPresenter;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class ComponentController extends AbstractApiController
@@ -53,6 +54,47 @@ class ComponentController extends AbstractApiController
         return $this->paginator($components, Request::instance());
     }
 
+    public function showBadgeForAll()
+    {
+        if (!config('badges.enabled')) {
+            abort(404);
+        }
+
+        if (app(Guard::class)->check()) {
+            $components = Component::query();
+        } else {
+            $components = Component::enabled();
+        }
+
+        if ($tags = Binput::get('tags')) {
+            $components->withAnyTags($tags);
+        }
+
+        $components->lowest();
+
+        $components->search(
+            Binput::except([
+                'sort', 'order', 'per_page',
+                'color', 'label', 'link', 'labelColor', 'logo','style'
+            ])
+        );
+
+        $baseParams = collect([
+            'label' => setting('app_name', config('app.name'))
+        ]);
+
+        $overwriteParams = collect(
+            Binput::only([
+                'color', 'label', 'link', 'labelColor', 'logo','style'
+            ])
+        )
+            ->filter();
+
+        $overwriteParams = $baseParams->merge($overwriteParams);
+
+        return AutoPresenter::decorate($components->first())->toBadgeResponse($overwriteParams);
+    }
+
     /**
      * Get a single component.
      *
@@ -63,6 +105,27 @@ class ComponentController extends AbstractApiController
     public function show(Component $component)
     {
         return $this->item($component);
+    }
+
+    /**
+     * Retrieves the badge for this component from a shields.io server
+     *
+     * @param Component $component
+     * @return mixed
+     */
+    public function showBadge(Component $component)
+    {
+        if (!config('badges.enabled')) {
+            abort(404);
+        }
+        $overwriteParams = collect(
+            Binput::only([
+                'color', 'label', 'link', 'labelColor', 'logo','style'
+            ])
+            )
+            ->filter();
+
+        return AutoPresenter::decorate($component)->toBadgeResponse($overwriteParams);
     }
 
     /**
