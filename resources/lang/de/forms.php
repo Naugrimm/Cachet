@@ -110,6 +110,7 @@ return [
             'banner-help'            => 'Es wird empfohlen, dass Sie keine Dateien die breiter als 930 Pixel sind hochladen .',
             'subscribers'            => 'Personen die Anmeldung für E-Mail-Benachrichtigung erlauben?',
             'automatic_localization' => 'Die Status-Seite automatisch auf die Sprache deiner Besucher anpassen?',
+            'display_badge_links'    => 'Links zu den Status-Badges von Komponenten/Gruppen/der Status-Seite anzeigen.',
         ],
         'analytics' => [
             'analytics_google'       => 'Google Analytics Code',

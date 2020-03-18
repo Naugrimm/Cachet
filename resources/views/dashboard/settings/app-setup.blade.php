@@ -153,6 +153,17 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="hidden" value="0" name="display_badge_links">
+                                        <input type="checkbox" value="1" name="display_badge_links" {{ $displayBadgeLinks ? 'checked' : null }}>
+                                        {{ trans('forms.settings.app-setup.display_badge_links') }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                     </fieldset>
 
                     <div class="row">

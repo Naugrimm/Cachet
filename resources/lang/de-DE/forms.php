@@ -164,6 +164,7 @@ return [
             'enable_external_dependencies'          => 'Drittanbieter Abhängigkeiten erlauben (Google Schriftarten, Tracker, etc...)',
             'show_timezone'                         => 'Zeitzone in der sich die Status-Seite befindet anzeigen',
             'only_disrupted_days'                   => 'Im Verlauf nur Tage mit Vorfällen anzeigen?',
+            'display_badge_links'                   => 'Links zu den Status-Badges von Komponenten/Gruppen/der Status-Seite anzeigen.',
         ],
         'analytics' => [
             'analytics_google'       => 'Google Analytics Code',
