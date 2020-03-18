@@ -11,11 +11,14 @@
 
 namespace CachetHQ\Cachet\Presenters;
 
+use AltThree\Badger\Facades\Badger;
 use CachetHQ\Cachet\Presenters\Traits\TimestampsTrait;
 use CachetHQ\Cachet\Services\Dates\DateFactory;
+use GrahamCampbell\Binput\Facades\Binput;
 use GuzzleHttp\Client;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
 use McCool\LaravelAutoPresenter\BasePresenter;
 
@@ -86,20 +89,21 @@ class ComponentPresenter extends BasePresenter implements Arrayable
 
     public function toBadgeResponse(Collection $overwriteParams = null)
     {
-        $client = new Client([
-            'base_uri' => config('badges.base_uri').'/static/v1'
-        ]);
+        switch ($this->status_color()) {
+            case 'reds': $color = Config::get('setting.style_reds', '#FF6F6F'); break;
+            case 'blues': $color = Config::get('setting.style_blues', '#3498DB'); break;
+            case 'greens': $color = Config::get('setting.style_greens', '#7ED321'); break;
+            case 'yellows': $color = Config::get('setting.style_yellows', '#F7CA18'); break;
+            default: $color = null;
+        }
 
-        $params = collect([
-            'label' => $this->wrappedObject->name,
-            'message' => $this->human_status(),
-            'color' => Str::singular($this->status_color())
-        ])->merge($overwriteParams);
+        $badge = Badger::generate(
+            $overwriteParams->get('label', $this->wrappedObject->name),
+            $overwriteParams->get('message', $this->human_status()),
+            $overwriteParams->get('color', substr($color, 1)),
+            $overwriteParams->get('style', 'flat-square')
+        );
 
-        $response = $client->get('', [
-            'query' => $params->toArray(),
-        ]);
-
-        return response($response->getBody(), $response->getStatusCode(), $response->getHeaders());
+        return response($badge, 200, ['Content-Type' => 'image/svg+xml']);
     }
 }
