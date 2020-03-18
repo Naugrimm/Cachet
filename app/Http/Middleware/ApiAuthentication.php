@@ -16,6 +16,7 @@ use Closure;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
@@ -58,7 +59,7 @@ class ApiAuthentication
     public function handle(Request $request, Closure $next, $required = false)
     {
         if ($this->auth->guest()) {
-            if ($apiToken = $request->header('X-Cachet-Token')) {
+            if ($apiToken = $this->getApiToken($request)) {
                 try {
                     $this->auth->onceUsingId(User::findByApiToken($apiToken)->id);
                 } catch (ModelNotFoundException $e) {
@@ -72,5 +73,18 @@ class ApiAuthentication
         }
 
         return $next($request);
+    }
+
+    protected function getApiToken(Request $request)
+    {
+        if ($apiToken = $request->header('X-Cachet-Token')) {
+            return $apiToken;
+        }
+
+        if (($apiToken = $request->header('Authorization')) && Str::startsWith($apiToken, "Bearer ")) {
+                return mb_substr($apiToken, 7);
+        }
+
+        return null;
     }
 }
