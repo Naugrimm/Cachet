@@ -42,21 +42,9 @@ class ApiRoutes
         ], function (Registrar $router) {
             $router->group(['middleware' => ['auth.api', 'cors']], function (Registrar $router) {
                 $router->get('components', 'ComponentController@index');
-                $router->get('components/badge', [
-                    'as' => 'get:badge',
-                    'uses' => 'ComponentController@showBadgeForAll',
-                ]);
                 $router->get('components/groups', 'ComponentGroupController@index');
                 $router->get('components/groups/{component_group}', 'ComponentGroupController@show');
-                $router->get('components/groups/{component_group}/badge', [
-                    'as' => 'get:componentgroup.badge',
-                    'uses' => 'ComponentGroupController@showBadge'
-                ]);
                 $router->get('components/{component}', 'ComponentController@show');
-                $router->get('components/{component}/badge', [
-                    'as' => 'get:component.badge',
-                    'uses' => 'ComponentController@showBadge'
-                ]);
 
                 $router->get('incidents', 'IncidentController@index');
 

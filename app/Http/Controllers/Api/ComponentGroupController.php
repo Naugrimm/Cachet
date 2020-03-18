@@ -93,10 +93,6 @@ class ComponentGroupController extends AbstractApiController
      */
     public function showBadge(ComponentGroup $group)
     {
-        if (!config('badges.enabled')) {
-            abort(404);
-        }
-
         $overwriteParams = collect(
             Binput::only([
                 'color', 'label', 'link', 'labelColor', 'logo','style'

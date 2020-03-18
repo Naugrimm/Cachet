@@ -44,6 +44,11 @@ class StatusPageRoutes
                 'uses' => 'StatusPageController@showIndex',
             ]);
 
+            $router->get('/badge', [
+                'as' => 'get:badge',
+                'uses' => 'Api\ComponentController@showBadgeForAll',
+            ]);
+
             $router->get('incidents/{incident}', [
                 'as'   => 'get:incident',
                 'uses' => 'StatusPageController@showIncident',
@@ -59,9 +64,19 @@ class StatusPageRoutes
                 'uses' => 'StatusPageController@getMetrics',
             ]);
 
+            $router->get('component/{component}/badge', [
+                'as' => 'get:component.badge',
+                'uses' => 'Api\ComponentController@showBadge'
+            ]);
+
             $router->get('component/{component}/shield', [
                 'as'   => 'get:component_shield',
                 'uses' => 'StatusPageController@showComponentBadge',
+            ]);
+
+            $router->get('component/group/{component_group}/badge', [
+                'as' => 'get:componentgroup.badge',
+                'uses' => 'Api\ComponentGroupController@showBadge'
             ]);
 
             $router->get('/imprint', [

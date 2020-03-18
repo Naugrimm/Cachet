@@ -8,9 +8,9 @@
     @if($component->description)
     <i class="ion ion-ios-help-outline help-icon" data-toggle="tooltip" data-title="{{ $component->description }}" data-container="body"></i>
     @endif
-    @if(config('badges.enabled'))
+    @if(setting('display_badge_links'))
         <a target="_blank" href="{{ cachet_route('component.badge', ['component' => $component->getKey()]) }}">
-            <i class="ion ion-ios-albums-outline"></i>
+            <i class="ion ion-image"></i>
         </a>
     @endif
 

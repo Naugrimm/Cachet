@@ -56,10 +56,6 @@ class ComponentController extends AbstractApiController
 
     public function showBadgeForAll()
     {
-        if (!config('badges.enabled')) {
-            abort(404);
-        }
-
         if (app(Guard::class)->check()) {
             $components = Component::query();
         } else {
@@ -115,9 +111,6 @@ class ComponentController extends AbstractApiController
      */
     public function showBadge(Component $component)
     {
-        if (!config('badges.enabled')) {
-            abort(404);
-        }
         $overwriteParams = collect(
             Binput::only([
                 'color', 'label', 'link', 'labelColor', 'logo','style'

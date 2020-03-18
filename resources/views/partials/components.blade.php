@@ -7,9 +7,9 @@
         <strong>{{ $componentGroup->name }}</strong>
 
         <div class="pull-right">
-            @if(config('badges.enabled'))
+            @if(setting('display_badge_links'))
                 <a target="_blank" href="{{ cachet_route('componentgroup.badge', ['group' => $componentGroup->getKey()]) }}">
-                    <i class="ion ion-ios-albums-outline"></i>
+                    <i class="ion ion-image"></i>
                 </a>
             @endif
             <i class="ion ion-ios-circle-filled text-component-{{ $componentGroup->lowest_status }} {{ $componentGroup->lowest_status_color }}" data-toggle="tooltip" title="{{ $componentGroup->lowest_human_status }}"></i>
