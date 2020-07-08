@@ -16,8 +16,8 @@ return [
         'status'       => [
             1 => 'Funktionsfähig',
             2 => 'Leistungsprobleme',
-            3 => 'Teilweiser Ausfall',
-            4 => 'Schwerer Ausfall',
+            3 => 'Störung',
+            4 => 'Kritische Störung',
         ],
         'group' => [
             'other' => 'Andere Komponenten',
