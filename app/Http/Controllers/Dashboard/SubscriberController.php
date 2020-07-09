@@ -58,7 +58,7 @@ class SubscriberController extends Controller
             $subscribers = preg_split("/\r\n|\n|\r/", Binput::get('email'));
 
             foreach ($subscribers as $subscriber) {
-                execute(new SubscribeSubscriberCommand($subscriber, $verified));
+                execute(new SubscribeSubscriberCommand($subscriber, $verified, null, true));
             }
         } catch (ValidationException $e) {
             return cachet_redirect('dashboard.subscribers.create')
