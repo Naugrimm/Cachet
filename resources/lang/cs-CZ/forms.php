@@ -64,7 +64,7 @@ return [
         'templates'          => [
             'name'     => 'Jméno',
             'template' => 'Šablona',
-            'twig'     => 'Šablony pro incidenty mohou používat šablonovací jazyk <a href="http://twig.sensiolabs.org/" target="_blank">Twing</a>.',
+            'twig'     => 'Šablony pro incidenty mohou používat šablonovací jazyk <a href="http://twig.sensiolabs.org/" target="_blank">Twig</a>.',
         ],
     ],
 
@@ -78,7 +78,7 @@ return [
         'templates'    => [
             'name'     => 'Jméno',
             'template' => 'Šablona',
-            'twig'     => 'Šablony pro incidenty mohou používat šablonovací jazyk <a href="http://twig.sensiolabs.org/" target="_blank">Twing</a>.',
+            'twig'     => 'Šablony pro incidenty mohou používat šablonovací jazyk <a href="http://twig.sensiolabs.org/" target="_blank">Twig</a>.',
         ],
     ],
 
@@ -168,7 +168,7 @@ return [
         'analytics' => [
             'analytics_google'       => 'Kód pro Google Analytics',
             'analytics_gosquared'    => 'Kód pro GoSquared Analytics',
-            'analytics_piwik_url'    => 'URL tvojí instance Piwik (bez http(s)://)',
+            'analytics_piwik_url'    => 'URL vaší instance Piwik',
             'analytics_piwik_siteid' => 'Id webu Piwik',
         ],
         'localization' => [
@@ -227,6 +227,11 @@ return [
 
     'general' => [
         'timezone' => 'Vybrat časové pásmo',
+    ],
+
+    'seo' => [
+        'title'        => 'SEO titulek',
+        'description'  => 'Popis SEO',
     ],
 
     // Buttons
