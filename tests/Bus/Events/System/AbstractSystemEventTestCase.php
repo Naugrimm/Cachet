@@ -14,6 +14,7 @@ namespace CachetHQ\Tests\Cachet\Bus\Events\System;
 use AltThree\TestBench\EventTrait;
 use CachetHQ\Cachet\Bus\Events\System\SystemEventInterface;
 use CachetHQ\Tests\Cachet\AbstractTestCase;
+use ReflectionClass;
 
 /**
  * This is the abstract system event test class.
@@ -22,7 +23,16 @@ use CachetHQ\Tests\Cachet\AbstractTestCase;
  */
 abstract class AbstractSystemEventTestCase extends AbstractTestCase
 {
-    use EventTrait;
+    use EventTrait {
+        EventTrait::getEventServiceProvider as traitGetEventServiceProvider;
+    }
+
+    protected function getEventServiceProvider()
+    {
+        $split = explode('\\', (new ReflectionClass($this))->getName());
+
+        return "{$split[0]}\\{$split[2]}\\Providers\\EventServiceProvider";
+    }
 
     protected function getEventInterfaces()
     {

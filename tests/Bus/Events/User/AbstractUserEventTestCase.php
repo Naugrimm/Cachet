@@ -14,6 +14,7 @@ namespace CachetHQ\Tests\Cachet\Bus\Events\User;
 use AltThree\TestBench\EventTrait;
 use CachetHQ\Cachet\Bus\Events\User\UserEventInterface;
 use CachetHQ\Tests\Cachet\AbstractTestCase;
+use ReflectionClass;
 
 /**
  * This is the abstract user event test class.
@@ -22,7 +23,16 @@ use CachetHQ\Tests\Cachet\AbstractTestCase;
  */
 abstract class AbstractUserEventTestCase extends AbstractTestCase
 {
-    use EventTrait;
+    use EventTrait {
+        EventTrait::getEventServiceProvider as traitGetEventServiceProvider;
+    }
+
+    protected function getEventServiceProvider()
+    {
+        $split = explode('\\', (new ReflectionClass($this))->getName());
+
+        return "{$split[0]}\\{$split[2]}\\Providers\\EventServiceProvider";
+    }
 
     protected function getEventInterfaces()
     {

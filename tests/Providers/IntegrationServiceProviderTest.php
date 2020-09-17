@@ -18,6 +18,7 @@ use CachetHQ\Cachet\Integrations\Contracts\Feed;
 use CachetHQ\Cachet\Integrations\Contracts\Releases;
 use CachetHQ\Cachet\Integrations\Contracts\System;
 use CachetHQ\Tests\Cachet\AbstractTestCase;
+use ReflectionClass;
 
 /**
  * This is the integration service provider test class.
@@ -27,7 +28,17 @@ use CachetHQ\Tests\Cachet\AbstractTestCase;
  */
 class IntegrationServiceProviderTest extends AbstractTestCase
 {
-    use ServiceProviderTrait;
+    use ServiceProviderTrait {
+        ServiceProviderTrait::getServiceProviderClass as traitGetServiceProviderClass;
+    }
+
+    protected function GetServiceProviderClass($app)
+    {
+        $split = explode('\\', (new ReflectionClass($this))->getName());
+        $class = substr(end($split), 0, -4);
+
+        return "{$split[0]}\\{$split[2]}\\Providers\\{$class}";
+    }
 
     public function testBeaconIsInjectable()
     {

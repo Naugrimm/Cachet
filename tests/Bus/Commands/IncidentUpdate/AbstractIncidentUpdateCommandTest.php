@@ -14,6 +14,7 @@ namespace CachetHQ\Tests\Cachet\Bus\Events\IncidentUpdate;
 use AltThree\TestBench\EventTrait;
 use CachetHQ\Cachet\Bus\Events\IncidentUpdate\IncidentUpdateEventInterface;
 use CachetHQ\Tests\Cachet\AbstractTestCase;
+use ReflectionClass;
 
 /**
  * This is the abstract incident update event test case class.
@@ -22,7 +23,16 @@ use CachetHQ\Tests\Cachet\AbstractTestCase;
  */
 abstract class AbstractIncidentUpdateCommandTest extends AbstractTestCase
 {
-    use EventTrait;
+    use EventTrait {
+        EventTrait::getEventServiceProvider as traitGetEventServiceProvider;
+    }
+
+    protected function getEventServiceProvider()
+    {
+        $split = explode('\\', (new ReflectionClass($this))->getName());
+
+        return "{$split[0]}\\{$split[2]}\\Providers\\EventServiceProvider";
+    }
 
     protected function getEventInterfaces()
     {

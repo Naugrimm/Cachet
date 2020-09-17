@@ -18,6 +18,7 @@ use CachetHQ\Tests\Cachet\AbstractTestCase;
 use Illuminate\Routing\Route;
 use Illuminate\Routing\RouteCollection;
 use Illuminate\Routing\Router;
+use ReflectionClass;
 
 /**
  * This is the route service provider test class.
@@ -26,7 +27,17 @@ use Illuminate\Routing\Router;
  */
 class RouteServiceProviderTest extends AbstractTestCase
 {
-    use ServiceProviderTrait;
+    use ServiceProviderTrait {
+        ServiceProviderTrait::getServiceProviderClass as traitGetServiceProviderClass;
+    }
+
+    protected function GetServiceProviderClass($app)
+    {
+        $split = explode('\\', (new ReflectionClass($this))->getName());
+        $class = substr(end($split), 0, -4);
+
+        return "{$split[0]}\\{$split[2]}\\Providers\\{$class}";
+    }
 
     /**
      * The login routes should always be available regardless of the always authenticate setting.

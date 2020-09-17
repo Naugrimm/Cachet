@@ -15,6 +15,7 @@ use AltThree\TestBench\ServiceProviderTrait;
 use CachetHQ\Cachet\Settings\Cache;
 use CachetHQ\Cachet\Settings\Repository;
 use CachetHQ\Tests\Cachet\AbstractTestCase;
+use ReflectionClass;
 
 /**
  * This is the config service provider test class.
@@ -23,7 +24,17 @@ use CachetHQ\Tests\Cachet\AbstractTestCase;
  */
 class ConfigServiceProviderTest extends AbstractTestCase
 {
-    use ServiceProviderTrait;
+    use ServiceProviderTrait {
+        ServiceProviderTrait::getServiceProviderClass as traitGetServiceProviderClass;
+    }
+
+    protected function GetServiceProviderClass($app)
+    {
+        $split = explode('\\', (new ReflectionClass($this))->getName());
+        $class = substr(end($split), 0, -4);
+
+        return "{$split[0]}\\{$split[2]}\\Providers\\{$class}";
+    }
 
     public function testCacheIsInjectable()
     {
