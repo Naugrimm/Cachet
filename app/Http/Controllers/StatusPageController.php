@@ -209,4 +209,89 @@ class StatusPageController extends AbstractApiController
 
         return Response::make($badge, 200, ['Content-Type' => 'image/svg+xml']);
     }
+
+    public function showAllSchedules() {
+        $onlyDisruptedDays = Config::get('setting.only_schedule_days');
+        $appScheduleDays = (int) Config::get('setting.app_incident_days', 1);
+
+
+        $startDate = Date::createFromFormat('Y-m-d', Binput::get('start_date', Date::now()->toDateString()));
+        $endDate = $startDate->copy()->subDays($appScheduleDays);
+
+        if ($onlyDisruptedDays) {
+
+            // In this case, start_date GET parameter means the page
+            $page = (int) Binput::get('start_date', 0);
+
+            $allScheduleDays = Schedule::
+                select('scheduled_at')
+                ->whereBetween('scheduled_at', [
+                    $endDate->format('Y-m-d').' 00:00:00',
+                    $startDate->format('Y-m-d').' 23:59:59',
+                ])
+                ->distinct()
+                ->orderBy('scheduled_at', 'desc')
+                ->get()
+                ->map(function (Schedule $schedule) {
+                    return app(DateFactory::class)->make($schedule->scheduled_at)->toDateString();
+                })->unique()
+                ->values();
+
+            $numIncidentDays = count($allScheduleDays);
+            $numPages = round($numIncidentDays / max($appScheduleDays, 1));
+
+            $selectedDays = $allScheduleDays->slice($page * $appScheduleDays, $appScheduleDays)->all();
+
+            if (count($selectedDays) > 0) {
+                $startDate = Date::createFromFormat('Y-m-d', array_values($selectedDays)[0]);
+                $endDate = Date::createFromFormat('Y-m-d', array_values(array_slice($selectedDays, -1))[0]);
+            }
+
+            $canPageForward = $page > 0;
+            $canPageBackward = ($page + 1) < $numPages;
+            $previousDate = $page + 1;
+            $nextDate = $page - 1;
+        } else {
+            $date = Date::now();
+
+            $canPageForward = (bool) $startDate->lt($date->sub('1 day'));
+            $canPageBackward = Schedule::where('scheduled_at', '<', $date->format('Y-m-d'))->count() > 0;
+            $previousDate = $startDate->copy()->subDays($appScheduleDays)->toDateString();
+            $nextDate = $startDate->copy()->addDays($appScheduleDays)->toDateString();
+        }
+
+        $allSchedules = Schedule::
+            whereBetween('scheduled_at', [
+                $endDate->format('Y-m-d').' 00:00:00',
+                $startDate->format('Y-m-d').' 23:59:59',
+            ])->orderBy('scheduled_at', 'desc')->get()->groupBy(function (Schedule $schedule) {
+                return app(DateFactory::class)->make($schedule->scheduled_at)->toDateString();
+            });
+
+
+        if (!$onlyDisruptedDays) {
+            $scheduleDays = array_pad([], $appScheduleDays, null);
+
+            // Add in days that have no incidents
+            foreach ($scheduleDays as $i => $day) {
+                $date = app(DateFactory::class)->make($startDate)->subDays($i);
+
+                if (!isset($allSchedules[$date->toDateString()])) {
+                    $allSchedules[$date->toDateString()] = [];
+                }
+            }
+        }
+
+        // Sort the array so it takes into account the added days
+        $allSchedules = $allSchedules->sortBy(function ($value, $key) {
+            return strtotime($key);
+        }, SORT_REGULAR, true);
+
+        return View::make('schedules')
+            ->withAllSchedules($allSchedules)
+            ->withCanPageForward($canPageForward)
+            ->withCanPageBackward($canPageBackward)
+            ->withPreviousDate($previousDate)
+            ->withNextDate($nextDate);
+    }
 }

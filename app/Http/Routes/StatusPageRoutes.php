@@ -63,6 +63,11 @@ class StatusPageRoutes
                 'as'   => 'get:component_shield',
                 'uses' => 'StatusPageController@showComponentBadge',
             ]);
+
+            $router->get('/schedules/', [
+                'as'   => 'get:schedules',
+                'uses' => 'StatusPageController@showAllSchedules',
+            ]);
         });
     }
 }

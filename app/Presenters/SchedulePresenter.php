@@ -35,6 +35,19 @@ class SchedulePresenter extends BasePresenter implements Arrayable
     protected $dates;
 
     /**
+     * Schedule icon lookup.
+     *
+     * @var array
+     */
+    protected $icons = [
+        0 => 'icon ion-android-calendar', // Scheduled
+        1 => 'icon ion-flag oranges', // Investigating
+        2 => 'icon ion-alert yellows', // Identified
+        3 => 'icon ion-eye blues', // Watching
+        4 => 'icon ion-checkmark greens', // Complete
+    ];
+
+    /**
      * Create a new presenter.
      *
      * @param \CachetHQ\Cachet\Services\Dates\DateFactory $dates
@@ -257,5 +270,21 @@ class SchedulePresenter extends BasePresenter implements Arrayable
             'created_at'   => $this->created_at(),
             'updated_at'   => $this->updated_at(),
         ]);
+    }
+
+    /**
+     * Present the latest icon.
+     *
+     * @return string
+     */
+    public function latest_icon()
+    {
+        if ($update = $this->wrappedObject) {
+            if (isset($this->icons[$update->status])) {
+                return $this->icons[$update->status];
+            }
+        }
+
+        return $this->icon();
     }
 }

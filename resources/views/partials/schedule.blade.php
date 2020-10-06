@@ -21,4 +21,7 @@
             @endforeach
         </div>
     </div>
+    <a href="/schedules/">
+        <btn class="btn btn-md btn-success">{{ trans('cachet.incidents.scheduled_all') }}</btn>
+    </a>
 </div>
