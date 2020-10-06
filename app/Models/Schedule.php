@@ -158,6 +158,15 @@ class Schedule extends Model implements HasPresenter
     }
 
     /**
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeCurrent(Builder $query)
+    {
+        return $query->where('scheduled_at', '>=', Carbon::now()->subRealHours(3));
+    }
+
+    /**
      * Scope schedules that are in progress.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
