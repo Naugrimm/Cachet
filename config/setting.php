@@ -124,5 +124,23 @@ return [
 
     'always_authenticate' => false,
 
-    'display_graphs' => true
+    /*
+    |--------------------------------------------------------------------------
+    | Metrics
+    |--------------------------------------------------------------------------
+    |
+    | enable/disable displaying of metrics
+    |
+     */
+    'display_graphs' => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Only show days with schedules in timeline for schedules
+    |--------------------------------------------------------------------------
+    |
+    | if value is false, all days are getting displayed in timeline
+    |
+     */
+    'only_schedule_days' => true
 ];
