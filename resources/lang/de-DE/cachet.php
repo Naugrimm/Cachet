@@ -33,6 +33,7 @@ return [
         'past'         => 'Vergangene Ereignisse',
         'stickied'     => 'Angepinnte Vorfälle',
         'scheduled'    => 'Wartungsarbeiten',
+        'scheduled_all' => 'Alle Wartungen',
         'scheduled_at' => ', geplant :timestamp',
         'posted'       => 'Posted :timestamp by :username',
         'posted_at'    => 'Veröffentlicht am :timestamp',

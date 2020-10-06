@@ -31,6 +31,7 @@ return [
         'previous_week' => 'Vorherige Woche',
         'next_week'     => 'Nächste Woche',
         'scheduled'     => 'Geplante Wartungen',
+        'scheduled_all' => 'Alle Wartungen',
         'scheduled_at'  => ', geplant :timestamp',
         'status'        => [
             0 => 'Geplant', // TODO: Hopefully remove this.
