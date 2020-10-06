@@ -123,4 +123,6 @@ return [
     */
 
     'always_authenticate' => false,
+
+    'display_graphs' => true
 ];
