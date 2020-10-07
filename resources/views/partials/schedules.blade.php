@@ -22,7 +22,7 @@
                                 {{-- $schedule->isCompleted ? trans("cachet.incidents.scheduled_at", ["timestamp" => $incident->scheduled_at_diff]) : null --}}
                                 <br>
                                 <small class="date">
-                                    <a href="{{ cachet_route('incident', ['id' => $schedule->id]) }}" class="links"><abbr class="timeago" data-toggle="tooltip" data-placement="right" title="{{ $schedule->timestamp_formatted }}" data-timeago="{{ $schedule->timestamp_iso }}"></abbr></a>
+                                    <a href="{{ cachet_route('schedule', ['id' => $schedule->id]) }}" class="links"><abbr class="timeago" data-toggle="tooltip" data-placement="right" title="{{ $schedule->timestamp_formatted }}" data-timeago="{{ $schedule->timestamp_iso }}"></abbr></a>
                                 </small>
                             </div>
                             <div class="panel-body markdown-body">
