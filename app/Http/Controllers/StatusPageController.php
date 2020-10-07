@@ -24,6 +24,8 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use Jenssegers\Date\Date;
 use McCool\LaravelAutoPresenter\Facades\AutoPresenter;
@@ -40,7 +42,6 @@ class StatusPageController extends AbstractApiController
     /**
      * Displays the status page.
      *
-     * @return \Illuminate\View\View
      */
     public function showIndex()
     {
@@ -53,6 +54,16 @@ class StatusPageController extends AbstractApiController
         $nextDate = null;
 
         if ($onlyDisruptedDays) {
+            $input = [
+                'start_date' => Binput::get('start_date', 0),
+            ];
+            $validator = Validator::make($input, [
+                'start_date' => 'sometimes|required|integer',
+            ]);
+            if($validator->fails()) {
+                return redirect(Route::current()->uri);
+            }
+
             // In this case, start_date GET parameter means the page
             $page = (int) Binput::get('start_date', 0);
 
@@ -81,6 +92,16 @@ class StatusPageController extends AbstractApiController
             $previousDate = $page + 1;
             $nextDate = $page - 1;
         } else {
+            $input = [
+                'start_date' => Binput::get('start_date', Date::now()->format('Y-m-d')),
+            ];
+            $validator = Validator::make($input, [
+                'start_date' => 'sometimes|required|date',
+            ]);
+            if($validator->fails()) {
+                return redirect(Route::current()->uri);
+            }
+
             $startDate = Date::createFromFormat('Y-m-d', Binput::get('start_date', Date::now()->toDateString()));
             $endDate = $startDate->copy()->subDays($appIncidentDays);
 
@@ -211,6 +232,15 @@ class StatusPageController extends AbstractApiController
         $appScheduleDays = (int) Config::get('setting.app_incident_days', 1);
 
         if ($onlyDisruptedDays) {
+            $input = [
+                'start_date' => Binput::get('start_date', 0),
+            ];
+            $validator = Validator::make($input, [
+                'start_date' => 'sometimes|required|integer',
+            ]);
+            if($validator->fails()) {
+                return redirect(Route::current()->uri);
+            }
 
             // In this case, start_date GET parameter means the page
             $page = (int) Binput::get('start_date', 0);
@@ -245,6 +275,16 @@ class StatusPageController extends AbstractApiController
                 $biggestDate = Date::now();
             } else {
                 $biggestDate = $biggestDate->scheduled_at->endOfDay();
+            }
+
+            $input = [
+                'start_date' => Binput::get('start_date', $biggestDate->format('Y-m-d')),
+            ];
+            $validator = Validator::make($input, [
+                'start_date' => 'sometimes|required|date',
+            ]);
+            if($validator->fails()) {
+                return redirect(Route::current()->uri);
             }
 
             $startDate = Date::createFromFormat('Y-m-d', Binput::get('start_date', $biggestDate->toDateString()));
