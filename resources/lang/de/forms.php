@@ -106,10 +106,13 @@ return [
             'display-graphs'         => 'Graphen auf der Statusseite anzeigen?',
             'about-this-page'        => 'Über diese Seite',
             'days-of-incidents'      => 'Wie viele Tage mit Vorfällen sollen gezeigt werden?',
+            'days-of-schedule'       => 'Wie viele Tage mit Wartungen sollen gezeigt werden?',
             'banner'                 => 'Banner Bild',
             'banner-help'            => 'Es wird empfohlen, dass Sie keine Dateien die breiter als 930 Pixel sind hochladen .',
             'subscribers'            => 'Personen die Anmeldung für E-Mail-Benachrichtigung erlauben?',
             'automatic_localization' => 'Die Status-Seite automatisch auf die Sprache deiner Besucher anpassen?',
+            'only_disrupted_days'    => 'Im Verlauf nur Tage mit Vorfällen anzeigen?',
+            'only_schedule_days'     => 'Im Verlauf nur Tage mit Wartungen anzeigen?',
         ],
         'analytics' => [
             'analytics_google'       => 'Google Analytics Code',

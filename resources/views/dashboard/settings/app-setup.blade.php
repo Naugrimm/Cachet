@@ -52,6 +52,14 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="form-group">
+                                    <label>{{ trans('forms.settings.app-setup.days-of-schedule') }}</label>
+                                    <input type="number" max="10000" name="app_schedule_days" class="form-control" value="{{ Config::get('setting.app_schedule_days', 7) }}" placeholder="{{ trans('forms.settings.app-setup.days-of-schedule') }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
                                     <label>{{ trans('forms.settings.app-setup.time_before_refresh') }}</label>
                                     <input type="number" name="app_refresh_rate" class="form-control" value="{{ Config::get('setting.app_refresh_rate', 0) }}" placeholder="{{ trans('forms.settings.app-setup.time_before_refresh') }}">
                                 </div>
@@ -149,6 +157,17 @@
                                         <input type="hidden" value="0" name="only_disrupted_days">
                                         <input type="checkbox" value="1" name="only_disrupted_days" {{ $onlyDisruptedDays ? 'checked' : null }}>
                                         {{ trans('forms.settings.app-setup.only_disrupted_days') }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="hidden" value="0" name="only_schedule_days">
+                                        <input type="checkbox" value="1" name="only_schedule_days" {{ $onlyScheduleDays ? 'checked' : null }}>
+                                        {{ trans('forms.settings.app-setup.only_schedule_days') }}
                                     </label>
                                 </div>
                             </div>

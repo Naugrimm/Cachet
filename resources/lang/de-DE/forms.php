@@ -153,6 +153,7 @@ return [
             'display-graphs'                        => 'Graphen auf der Statusseite anzeigen?',
             'about-this-page'                       => 'Über diese Seite',
             'days-of-incidents'                     => 'Wie viele Tage mit Vorfällen sollen gezeigt werden?',
+            'days-of-schedule'                      => 'Wie viele Tage mit Wartungen sollen gezeigt werden?',
             'time_before_refresh'                   => 'Aktualisierungsrate der Statusseite (in Sekunden)',
             'major_outage_rate'                     => 'Grenzwert für schwerwiegende Ausfälle (in %)',
             'banner'                                => 'Banner Bild',
@@ -164,6 +165,7 @@ return [
             'enable_external_dependencies'          => 'Drittanbieter Abhängigkeiten erlauben (Google Schriftarten, Tracker, etc...)',
             'show_timezone'                         => 'Zeitzone in der sich die Status-Seite befindet anzeigen',
             'only_disrupted_days'                   => 'Im Verlauf nur Tage mit Vorfällen anzeigen?',
+            'only_schedule_days'                    => 'Im Verlauf nur Tage mit Wartungen anzeigen?',
         ],
         'analytics' => [
             'analytics_google'       => 'Google Analytics Code',
