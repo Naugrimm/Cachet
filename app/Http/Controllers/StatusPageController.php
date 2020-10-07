@@ -58,10 +58,6 @@ class StatusPageController extends AbstractApiController
 
             $allIncidentDays = Incident::where('visible', '>=', (int) !Auth::check())
                                        ->select('occurred_at')
-                                       ->whereBetween('occurred_at', [
-                                           $endDate->format('Y-m-d').' 00:00:00',
-                                           $startDate->format('Y-m-d').' 23:59:59',
-                                       ])
                                        ->distinct()
                                        ->orderBy('occurred_at', 'desc')
                                        ->get()
@@ -221,10 +217,6 @@ class StatusPageController extends AbstractApiController
 
             $allScheduleDays = Schedule::
                 select('scheduled_at')
-                ->whereBetween('scheduled_at', [
-                    $endDate->format('Y-m-d').' 00:00:00',
-                    $startDate->format('Y-m-d').' 23:59:59',
-                ])
                 ->distinct()
                 ->orderBy('scheduled_at', 'desc')
                 ->get()
