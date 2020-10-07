@@ -47,9 +47,6 @@ class StatusPageController extends AbstractApiController
         $onlyDisruptedDays = Config::get('setting.only_disrupted_days');
         $appIncidentDays = (int) Config::get('setting.app_incident_days', 1);
 
-        $startDate = Date::createFromFormat('Y-m-d', Binput::get('start_date', Date::now()->toDateString()));
-        $endDate = $startDate->copy()->subDays($appIncidentDays);
-
         $canPageForward = false;
         $canPageBackward = false;
         $previousDate = null;
@@ -88,6 +85,9 @@ class StatusPageController extends AbstractApiController
             $previousDate = $page + 1;
             $nextDate = $page - 1;
         } else {
+            $startDate = Date::createFromFormat('Y-m-d', Binput::get('start_date', Date::now()->toDateString()));
+            $endDate = $startDate->copy()->subDays($appIncidentDays);
+
             $date = Date::now();
 
             $canPageForward = (bool) $startDate->lt($date->sub('1 day'));
@@ -214,10 +214,6 @@ class StatusPageController extends AbstractApiController
         $onlyDisruptedDays = Config::get('setting.only_schedule_days');
         $appScheduleDays = (int) Config::get('setting.app_incident_days', 1);
 
-
-        $startDate = Date::createFromFormat('Y-m-d', Binput::get('start_date', Date::now()->toDateString()));
-        $endDate = $startDate->copy()->subDays($appScheduleDays);
-
         if ($onlyDisruptedDays) {
 
             // In this case, start_date GET parameter means the page
@@ -252,9 +248,19 @@ class StatusPageController extends AbstractApiController
             $previousDate = $page + 1;
             $nextDate = $page - 1;
         } else {
+            $biggestDate = Schedule::orderBy('scheduled_at', 'desc')->first();
+            if(!$biggestDate) {
+                $biggestDate = Date::now();
+            } else {
+                $biggestDate = $biggestDate->scheduled_at->endOfDay();
+            }
+
+            $startDate = Date::createFromFormat('Y-m-d', Binput::get('start_date', $biggestDate->toDateString()));
+            $endDate = $startDate->copy()->subDays($appScheduleDays - 1);
+
             $date = Date::now();
 
-            $canPageForward = (bool) $startDate->lt($date->sub('1 day'));
+            $canPageForward = (bool) $startDate->lt( Date::parse($biggestDate)->sub('1 day'));
             $canPageBackward = Schedule::where('scheduled_at', '<', $date->format('Y-m-d'))->count() > 0;
             $previousDate = $startDate->copy()->subDays($appScheduleDays)->toDateString();
             $nextDate = $startDate->copy()->addDays($appScheduleDays)->toDateString();
