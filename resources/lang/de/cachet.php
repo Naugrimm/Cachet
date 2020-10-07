@@ -42,6 +42,15 @@ return [
         ],
     ],
 
+    // Schedule
+    'schedules' => [
+        'status' => [
+            0 => 'Bevorstehend',
+            1 => 'In Bearbeitung',
+            2 => 'Abgeschlossen',
+        ],
+    ],
+
     // Service Status
     'service' => [
         'good'  => '[0,1] System funktioniert|[2,Inf] Alle Systeme funktionieren',
