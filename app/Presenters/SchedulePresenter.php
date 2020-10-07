@@ -40,11 +40,9 @@ class SchedulePresenter extends BasePresenter implements Arrayable
      * @var array
      */
     protected $icons = [
-        0 => 'icon ion-android-calendar', // Scheduled
-        1 => 'icon ion-flag oranges', // Investigating
-        2 => 'icon ion-alert yellows', // Identified
-        3 => 'icon ion-eye blues', // Watching
-        4 => 'icon ion-checkmark greens', // Complete
+        0 => 'icon ion-android-alarm-clock blues', // Upcoming
+        1 => 'icon ion-wrench yellows', // In Progress
+        2 => 'icon ion-checkmark greens', // Completed
     ];
 
     /**
@@ -247,13 +245,7 @@ class SchedulePresenter extends BasePresenter implements Arrayable
      */
     public function human_status()
     {
-        // return trans('cachet.incidents.status.'.$this->wrappedObject->status);
-        // TODO: Refactor into translations.
-        switch ($this->wrappedObject->status) {
-            case 0: return 'Upcoming';
-            case 1: return 'In Progress';
-            case 2: return 'Complete';
-        }
+        return trans('cachet.schedules.status.'.$this->wrappedObject->status);
     }
 
     /**
