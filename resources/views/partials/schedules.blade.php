@@ -12,15 +12,12 @@
                     <div class="col-xs-10 col-xs-offset-2 col-sm-11 col-sm-offset-0">
                         <div class="panel panel-message incident">
                             <div class="panel-heading">
-                                {{--@if($currentUser)
+                                @if($currentUser)
                                     <div class="pull-right btn-group">
-                                        <a href="{{ cachet_route('dashboard.incidents.edit', ['id' => $schedule->id]) }}" class="btn btn-default">{{ trans('forms.edit') }}</a>
-                                        <a href="{{ cachet_route('dashboard.incidents.delete', ['id' => $schedule->id], 'delete') }}" class="btn btn-danger confirm-action" data-method='DELETE'>{{ trans('forms.delete') }}</a>
+                                        <a href="{{ cachet_route('dashboard.schedule.edit', ['id' => $schedule->id]) }}" class="btn btn-default">{{ trans('forms.edit') }}</a>
+                                        <a href="{{ cachet_route('dashboard.schedule.delete', ['id' => $schedule->id], 'delete') }}" class="btn btn-danger confirm-action" data-method='DELETE'>{{ trans('forms.delete') }}</a>
                                     </div>
                                 @endif
-                                @if($incident->component)
-                                    <span class="label label-default">{{ $incident->component->name }}</span>
-                                @endif--}}
                                 <strong>{{ $schedule->name }}</strong>
                                 {{-- $schedule->isCompleted ? trans("cachet.incidents.scheduled_at", ["timestamp" => $incident->scheduled_at_diff]) : null --}}
                                 <br>
