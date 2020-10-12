@@ -153,6 +153,7 @@ return [
             'display-graphs'                        => 'Display graphs on status page?',
             'about-this-page'                       => 'About this page',
             'days-of-incidents'                     => 'How many days of incidents to show?',
+            'days-of-schedule'                      => 'How many days of maintenances to show?',
             'time_before_refresh'                   => 'Status page refresh rate (in seconds)',
             'major_outage_rate'                     => 'Major outage threshold (in %)',
             'banner'                                => 'Banner Image',
@@ -165,6 +166,7 @@ return [
             'show_timezone'                         => 'Show the timezone the status page is running in',
             'only_disrupted_days'                   => 'Only show days containing incidents in the timeline?',
             'display_badge_links'                   => 'Display links to the components/groups/sites status badges.',
+            'only_schedule_days'                    => 'Only show days containing maintenances in the timeline?',
         ],
         'analytics' => [
             'analytics_google'       => 'Google Analytics code',

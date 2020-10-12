@@ -153,6 +153,7 @@ return [
             'display-graphs'                        => 'Graphen auf der Statusseite anzeigen?',
             'about-this-page'                       => 'Über diese Seite',
             'days-of-incidents'                     => 'Wie viele Tage mit Vorfällen sollen gezeigt werden?',
+            'days-of-schedule'                      => 'Wie viele Tage mit Wartungen sollen gezeigt werden?',
             'time_before_refresh'                   => 'Aktualisierungsrate der Statusseite (in Sekunden)',
             'major_outage_rate'                     => 'Grenzwert für schwerwiegende Ausfälle (in %)',
             'banner'                                => 'Banner Bild',
@@ -165,11 +166,12 @@ return [
             'show_timezone'                         => 'Zeitzone in der sich die Status-Seite befindet anzeigen',
             'only_disrupted_days'                   => 'Im Verlauf nur Tage mit Vorfällen anzeigen?',
             'display_badge_links'                   => 'Links zu den Status-Badges von Komponenten/Gruppen/der Status-Seite anzeigen.',
+            'only_schedule_days'                    => 'Im Verlauf nur Tage mit Wartungen anzeigen?',
         ],
         'analytics' => [
             'analytics_google'       => 'Google Analytics Code',
             'analytics_gosquared'    => 'GoSquared Analytics Code',
-            'analytics_piwik_url'    => 'URL der Piwik-Instanz (ohne http(s)://)',
+            'analytics_piwik_url'    => 'URL of your Piwik instance',
             'analytics_piwik_siteid' => 'Piwik\'s Seiten-ID',
         ],
         'localization' => [
@@ -228,6 +230,11 @@ return [
 
     'general' => [
         'timezone' => 'Zeitzone wählen',
+    ],
+
+    'seo' => [
+        'title'        => 'SEO Title',
+        'description'  => 'SEO Description',
     ],
 
     // Buttons

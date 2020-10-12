@@ -168,7 +168,7 @@ return [
         'analytics' => [
             'analytics_google'       => 'crwdns1203:0crwdne1203:0',
             'analytics_gosquared'    => 'crwdns1204:0crwdne1204:0',
-            'analytics_piwik_url'    => 'crwdns1205:0crwdne1205:0',
+            'analytics_piwik_url'    => 'crwdns1524:0crwdne1524:0',
             'analytics_piwik_siteid' => 'crwdns1206:0crwdne1206:0',
         ],
         'localization' => [
@@ -227,6 +227,11 @@ return [
 
     'general' => [
         'timezone' => 'crwdns1240:0crwdne1240:0',
+    ],
+
+    'seo' => [
+        'title'        => 'crwdns1526:0crwdne1526:0',
+        'description'  => 'crwdns1528:0crwdne1528:0',
     ],
 
     // Buttons

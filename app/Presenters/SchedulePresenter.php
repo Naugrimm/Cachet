@@ -35,6 +35,17 @@ class SchedulePresenter extends BasePresenter implements Arrayable
     protected $dates;
 
     /**
+     * Schedule icon lookup.
+     *
+     * @var array
+     */
+    protected $icons = [
+        0 => 'icon ion-android-alarm-clock blues', // Upcoming
+        1 => 'icon ion-wrench yellows', // In Progress
+        2 => 'icon ion-checkmark greens', // Completed
+    ];
+
+    /**
      * Create a new presenter.
      *
      * @param \CachetHQ\Cachet\Services\Dates\DateFactory $dates
@@ -234,13 +245,7 @@ class SchedulePresenter extends BasePresenter implements Arrayable
      */
     public function human_status()
     {
-        // return trans('cachet.incidents.status.'.$this->wrappedObject->status);
-        // TODO: Refactor into translations.
-        switch ($this->wrappedObject->status) {
-            case 0: return 'Upcoming';
-            case 1: return 'In Progress';
-            case 2: return 'Complete';
-        }
+        return trans('cachet.schedules.status.'.$this->wrappedObject->status);
     }
 
     /**
@@ -257,5 +262,21 @@ class SchedulePresenter extends BasePresenter implements Arrayable
             'created_at'   => $this->created_at(),
             'updated_at'   => $this->updated_at(),
         ]);
+    }
+
+    /**
+     * Present the latest icon.
+     *
+     * @return string
+     */
+    public function latest_icon()
+    {
+        if ($update = $this->wrappedObject) {
+            if (isset($this->icons[$update->status])) {
+                return $this->icons[$update->status];
+            }
+        }
+
+        return $this->icon();
     }
 }

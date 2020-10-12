@@ -88,6 +88,11 @@ class StatusPageRoutes
                 'as'   => 'get:privacy',
                 'uses' => 'StatusPageController@showPrivacyStatement',
             ]);
+
+            $router->get('/schedules/', [
+                'as'   => 'get:schedules',
+                'uses' => 'StatusPageController@showAllSchedules',
+            ]);
         });
     }
 }

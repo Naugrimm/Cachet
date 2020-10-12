@@ -134,4 +134,24 @@ return [
     */
 
     'unverified_cleanup_interval' => env('UNVERIFIED_CLEANUP_INTERVAL', 'P1M'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Metrics
+    |--------------------------------------------------------------------------
+    |
+    | enable/disable displaying of metrics
+    |
+     */
+    'display_graphs' => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Only show days with schedules in timeline for schedules
+    |--------------------------------------------------------------------------
+    |
+    | if value is false, all days are getting displayed in timeline
+    |
+     */
+    'only_schedule_days' => true
 ];

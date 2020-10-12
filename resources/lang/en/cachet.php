@@ -33,6 +33,7 @@ return [
         'past'         => 'Past Incidents',
         'stickied'     => 'Stickied Incidents',
         'scheduled'    => 'Maintenance',
+        'scheduled_all' => 'All Maintenances',
         'scheduled_at' => ', scheduled :timestamp',
         'posted'       => 'Posted :timestamp by :username',
         'posted_at'    => 'Posted at :timestamp',
