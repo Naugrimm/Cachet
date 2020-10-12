@@ -61,7 +61,7 @@ class ScheduleController extends Controller
      */
     public function showIndex()
     {
-        $schedule = Schedule::orderBy('created_at')->get();
+        $schedule = Schedule::orderBy('scheduled_at', 'desc')->paginate(10);
 
         return View::make('dashboard.maintenance.index')
             ->withPageTitle(trans('dashboard.schedule.schedule').' - '.trans('dashboard.dashboard'))
