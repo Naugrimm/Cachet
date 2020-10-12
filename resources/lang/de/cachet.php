@@ -30,7 +30,7 @@ return [
         'past'          => 'Vergangene Vorfälle',
         'previous_week' => 'Vorherige Woche',
         'next_week'     => 'Nächste Woche',
-        'scheduled'     => 'Geplante Wartungen',
+        'scheduled'     => 'Aktuelle Wartungen',
         'scheduled_all' => 'Alle Wartungen',
         'scheduled_at'  => ', geplant :timestamp',
         'status'        => [

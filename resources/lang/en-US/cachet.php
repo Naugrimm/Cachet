@@ -32,7 +32,7 @@ return [
         'none'         => 'No incidents reported',
         'past'         => 'Past Incidents',
         'stickied'     => 'Stickied Incidents',
-        'scheduled'    => 'Maintenance',
+        'scheduled'    => 'Actually Maintenances',
         'scheduled_all' => 'All Maintenances',
         'scheduled_at' => ', scheduled :timestamp',
         'posted'       => 'Posted :timestamp by :username',

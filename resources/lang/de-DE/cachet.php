@@ -32,7 +32,7 @@ return [
         'none'         => 'Es liegen keine Ereignisse vor',
         'past'         => 'Vergangene Ereignisse',
         'stickied'     => 'Angepinnte Vorfälle',
-        'scheduled'    => 'Wartungsarbeiten',
+        'scheduled'    => 'Aktuelle Wartungsarbeiten',
         'scheduled_all' => 'Alle Wartungen',
         'scheduled_at' => ', geplant :timestamp',
         'posted'       => 'Posted :timestamp by :username',
