@@ -35,6 +35,24 @@
                         </div>
                     </div>
                     @endforeach
+                    <nav>
+                        <ul class="pager">
+                            @if(!$schedule->onFirstPage())
+                                <li class="previous">
+                                    <a href="{{ $schedule->previousPageUrl() }}" class="links">
+                                        <span aria-hidden="true">&larr;</span> {{ trans('pagination.previous') }}
+                                    </a>
+                                </li>
+                            @endif
+                            @if($schedule->hasMorePages())
+                                <li class="next">
+                                    <a href="{{ $schedule->nextPageUrl() }}" class="links">
+                                        {{ trans('pagination.next') }} <span aria-hidden="true">&rarr;</span>
+                                    </a>
+                                </li>
+                            @endif
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
