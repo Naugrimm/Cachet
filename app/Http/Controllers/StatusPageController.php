@@ -103,7 +103,7 @@ class StatusPageController extends AbstractApiController
             }
 
             $startDate = Date::createFromFormat('Y-m-d', Binput::get('start_date', Date::now()->toDateString()));
-            $endDate = $startDate->copy()->subDays($appIncidentDays);
+            $endDate = $startDate->copy()->subDays($appIncidentDays - 1);
 
             $date = Date::now();
 
