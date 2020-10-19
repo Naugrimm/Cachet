@@ -4,6 +4,11 @@
             <strong>{{ trans('cachet.incidents.scheduled') }}</strong>
         </div>
         <div class="list-group">
+            @if(count($scheduledMaintenance) === 0)
+                <li class="list-group-item sub-component">
+                    {{ trans('cachet.incidents.schedules_actually_empty') }}
+                </li>
+            @endif
             @foreach($scheduledMaintenance as $schedule)
             <div class="list-group-item" id="scheduled-{{ $schedule->id }}">
                 <strong>{{ $schedule->name }}</strong> <small class="date"><abbr class="timeago" data-toggle="tooltip" data-placement="right" title="{{ $schedule->scheduled_at_formatted }}" data-timeago="{{ $schedule->scheduled_at_iso }}"></abbr></small>

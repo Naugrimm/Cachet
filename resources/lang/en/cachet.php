@@ -37,6 +37,7 @@ return [
         'scheduled_at' => ', scheduled :timestamp',
         'posted'       => 'Posted :timestamp by :username',
         'posted_at'    => 'Posted at :timestamp',
+        'schedules_actually_empty' => 'Currently, there are no maintenances!',
         'status'       => [
             1 => 'Investigating',
             2 => 'Identified',

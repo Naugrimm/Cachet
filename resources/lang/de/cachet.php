@@ -33,6 +33,7 @@ return [
         'scheduled'     => 'Aktuelle Wartungen',
         'scheduled_all' => 'Alle Wartungen',
         'scheduled_at'  => ', geplant :timestamp',
+        'schedules_actually_empty' => 'Es liegen keine aktuellen Wartungen vor!',
         'status'        => [
             0 => 'Geplant', // TODO: Hopefully remove this.
             1 => 'Untersuchungen laufen',

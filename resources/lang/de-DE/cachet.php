@@ -37,6 +37,7 @@ return [
         'scheduled_at' => ', geplant :timestamp',
         'posted'       => 'Posted :timestamp by :username',
         'posted_at'    => 'Veröffentlicht am :timestamp',
+        'schedules_actually_empty' => 'Es liegen keine aktuellen Wartungen vor!',
         'status'       => [
             1 => 'Untersuchungen laufen',
             2 => 'Identifiziert',
