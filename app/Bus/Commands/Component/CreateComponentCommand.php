@@ -113,7 +113,7 @@ final class CreateComponentCommand
      *
      * @return void
      */
-    public function __construct($name, $description, $status, $link, $order, $group_id, $enabled, $meta, $tags = null)
+    public function __construct($name, $description, $status, $link, $order, $group_id, $user_group_id, $enabled, $meta, $tags = null)
     {
         $this->name = $name;
         $this->description = $description;
@@ -121,6 +121,7 @@ final class CreateComponentCommand
         $this->link = $link;
         $this->order = $order;
         $this->group_id = $group_id;
+        $this->user_group_id = $user_group_id;
         $this->enabled = $enabled;
         $this->meta = $meta;
         $this->tags = $tags;

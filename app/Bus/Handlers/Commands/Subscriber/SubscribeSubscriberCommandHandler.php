@@ -43,20 +43,6 @@ class SubscribeSubscriberCommandHandler
 
         $subscriber = Subscriber::firstOrCreate(['email' => $command->email]);
 
-        // Decide what to subscribe the subscriber to.
-        if ($subscriptions = $command->subscriptions) {
-            $components = Component::whereIn('id', $subscriptions)->get();
-        } else {
-            $components = Component::all();
-        }
-
-        $components->each(function ($component) use ($subscriber) {
-            Subscription::create([
-                'subscriber_id' => $subscriber->id,
-                'component_id'  => $component->id,
-            ]);
-        });
-
         if ($command->verified) {
             execute(new VerifySubscriberCommand($subscriber));
         } else {
@@ -64,8 +50,6 @@ class SubscribeSubscriberCommandHandler
         }
 
         event(new SubscriberHasSubscribedEvent($subscriber));
-
-        $subscriber->load('subscriptions');
 
         return $subscriber;
     }

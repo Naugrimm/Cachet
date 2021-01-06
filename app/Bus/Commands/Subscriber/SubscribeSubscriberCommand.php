@@ -33,11 +33,11 @@ final class SubscribeSubscriberCommand
     public $verified;
 
     /**
-     * The list of subscriptions to set the subscriber up with.
+     * The list of allowed groups to set the subscriber up with.
      *
      * @var array|null
      */
-    public $subscriptions;
+    public $allowedGroups;
 
     /**
      * If the subscriber accepted the privacy statement.
@@ -66,11 +66,11 @@ final class SubscribeSubscriberCommand
      *
      * @return void
      */
-    public function __construct($email, $verified = false, $subscriptions = null, $acceptPrivacyStatement = false)
+    public function __construct($email, $verified = false, $allowedGroups = null, $acceptPrivacyStatement = false)
     {
         $this->email = $email;
         $this->verified = $verified;
-        $this->subscriptions = $subscriptions;
+        $this->allowedGroups = $allowedGroups;
         $this->acceptPrivacyStatement = $acceptPrivacyStatement;
     }
 }

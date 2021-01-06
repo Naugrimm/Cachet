@@ -78,7 +78,7 @@ class Subscriber extends Model implements HasPresenter
      *
      * @var string[]
      */
-    protected $with = ['subscriptions'];
+    protected $with = ['allowedGroups'];
 
     /**
      * Overrides the models boot method.
@@ -101,9 +101,9 @@ class Subscriber extends Model implements HasPresenter
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function subscriptions()
+    public function allowedGroups()
     {
-        return $this->hasMany(Subscription::class);
+        return $this->hasMany(AllowedGroups::class, 'users_id');
     }
 
     /**

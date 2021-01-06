@@ -84,6 +84,7 @@ class CreateComponentCommandHandler
             'enabled'     => $command->enabled,
             'order'       => $command->order,
             'group_id'    => $command->group_id,
+            'user_groups_id'    => $command->user_group_id,
             'meta'        => $command->meta,
         ];
 

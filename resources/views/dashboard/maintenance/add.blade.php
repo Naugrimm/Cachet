@@ -48,6 +48,19 @@
                                 <textarea name="message" class="form-control autosize" rows="5" required placeholder="{{ trans('forms.schedules.message') }}" v-model="message">{{ Binput::old('message') }}</textarea>
                             </div>
                         </div>
+                        @if($userGroups->count() > 0)
+                            <div class="form-group">
+                                <label>{{ trans('forms.components.user_group') }}</label> <small class="text-muted">{{ trans('forms.optional') }}</small>
+                                <select name="user_group_id" class="form-control">
+                                    <option value="0" selected></option>
+                                    @foreach($userGroups as $userGroup)
+                                        <option value="{{ $userGroup->id }}">{{ $userGroup->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        @else
+                            <input type="hidden" name="user_group_id" value="0">
+                        @endif
                         <div class="form-group">
                             <label>{{ trans('forms.schedules.scheduled_at') }}</label>
                             <input type="text" name="scheduled_at" class="form-control flatpickr-time" data-date-format="Y-m-d H:i" required placeholder="{{ trans('forms.schedules.scheduled_at') }}">

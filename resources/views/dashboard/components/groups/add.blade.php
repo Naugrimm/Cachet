@@ -29,6 +29,19 @@
                             <option value="2">{{ trans('forms.components.groups.collapsed_incident') }}</option>
                         </select>
                     </div>
+                    @if($userGroups->count() > 0)
+                        <div class="form-group">
+                            <label>{{ trans('forms.components.user_group') }}</label>
+                            <select name="user_group_id" class="form-control">
+                                <option value="0" selected></option>
+                                @foreach($userGroups as $userGroup)
+                                    <option value="{{ $userGroup->id }}">{{ $userGroup->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @else
+                        <input type="hidden" name="user_group_id" value="0">
+                    @endif
                     <div class="form-group">
                         <label>{{ trans('forms.components.groups.visibility') }}</label>
                         <select name="visible" class="form-control" required>

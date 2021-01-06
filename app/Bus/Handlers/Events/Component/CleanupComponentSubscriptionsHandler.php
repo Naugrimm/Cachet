@@ -31,10 +31,10 @@ class CleanupComponentSubscriptionsHandler
      */
     public function handle(ComponentWasRemovedEvent $event)
     {
-        $component = $event->component;
-        $subscription = Subscription::forComponent($component->id);
+        //$component = $event->component;
+        //$subscription = Subscription::forComponent($component->id);
 
         // Cleanup the subscriptions.
-        $subscription->delete();
+        //$subscription->delete();
     }
 }

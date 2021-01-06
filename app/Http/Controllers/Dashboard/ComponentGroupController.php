@@ -17,6 +17,7 @@ use CachetHQ\Cachet\Bus\Commands\ComponentGroup\RemoveComponentGroupCommand;
 use CachetHQ\Cachet\Bus\Commands\ComponentGroup\UpdateComponentGroupCommand;
 use CachetHQ\Cachet\Models\Component;
 use CachetHQ\Cachet\Models\ComponentGroup;
+use CachetHQ\Cachet\Models\UserGroup;
 use GrahamCampbell\Binput\Facades\Binput;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;
@@ -101,7 +102,8 @@ class ComponentGroupController extends Controller
     public function showAddComponentGroup()
     {
         return View::make('dashboard.components.groups.add')
-            ->withPageTitle(trans('dashboard.components.groups.add.title').' - '.trans('dashboard.dashboard'));
+            ->withPageTitle(trans('dashboard.components.groups.add.title').' - '.trans('dashboard.dashboard'))
+            ->withUserGroups(UserGroup::all());
     }
 
     /**
@@ -115,7 +117,8 @@ class ComponentGroupController extends Controller
     {
         return View::make('dashboard.components.groups.edit')
             ->withPageTitle(trans('dashboard.components.groups.edit.title').' - '.trans('dashboard.dashboard'))
-            ->withGroup($group);
+            ->withGroup($group)
+            ->withUserGroups(UserGroup::all());
     }
 
     /**
@@ -130,6 +133,7 @@ class ComponentGroupController extends Controller
                 Binput::get('name'),
                 Binput::get('order', 0),
                 Binput::get('collapsed'),
+                Binput::get('user_group_id'),
                 Binput::get('visible')
             ));
         } catch (ValidationException $e) {
@@ -158,6 +162,7 @@ class ComponentGroupController extends Controller
                 Binput::get('name'),
                 $group->order,
                 Binput::get('collapsed'),
+                Binput::get('user_group_id'),
                 Binput::get('visible')
             ));
         } catch (ValidationException $e) {

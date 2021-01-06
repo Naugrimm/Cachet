@@ -66,6 +66,7 @@ class UpdateComponentGroupCommandHandler
             'name'      => $command->name,
             'order'     => $command->order,
             'collapsed' => $command->collapsed,
+            'user_groups_id' => $command->user_group_id,
             'visible'   => $command->visible,
         ];
 

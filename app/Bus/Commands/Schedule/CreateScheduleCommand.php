@@ -95,9 +95,10 @@ final class CreateScheduleCommand
      *
      * @return void
      */
-    public function __construct($name, $message, $status, $scheduled_at, $completed_at, $components, $notify)
+    public function __construct($name, $user_group_id, $message, $status, $scheduled_at, $completed_at, $components, $notify)
     {
         $this->name = $name;
+        $this->user_group_id = $user_group_id;
         $this->message = $message;
         $this->status = $status;
         $this->scheduled_at = $scheduled_at;

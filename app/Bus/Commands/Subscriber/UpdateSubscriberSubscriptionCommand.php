@@ -32,7 +32,7 @@ final class UpdateSubscriberSubscriptionCommand
      *
      * @var array|null
      */
-    public $subscriptions;
+    public $allowedGroups;
 
     /**
      * Create a new subscribe subscriber command instance.
@@ -42,9 +42,9 @@ final class UpdateSubscriberSubscriptionCommand
      *
      * @return void
      */
-    public function __construct($subscriber, $subscriptions = null)
+    public function __construct($subscriber, $allowedGroups = null)
     {
         $this->subscriber = $subscriber;
-        $this->subscriptions = $subscriptions;
+        $this->allowedGroups = $allowedGroups;
     }
 }

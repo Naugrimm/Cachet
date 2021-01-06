@@ -118,6 +118,7 @@ class Incident extends Model implements HasPresenter
         'occurred_at',
         'created_at',
         'updated_at',
+        'user_groups_id'
     ];
 
     /**

@@ -140,9 +140,10 @@ final class CreateIncidentCommand
      *
      * @return void
      */
-    public function __construct($name, $status, $message, $visible, $component_id, $component_status, $notify, $stickied, $occurred_at, $template, array $template_vars = [], array $meta = [])
+    public function __construct($name, $user_group_id, $status, $message, $visible, $component_id, $component_status, $notify, $stickied, $occurred_at, $template, array $template_vars = [], array $meta = [])
     {
         $this->name = $name;
+        $this->user_group_id = $user_group_id;
         $this->status = $status;
         $this->message = $message;
         $this->visible = $visible;

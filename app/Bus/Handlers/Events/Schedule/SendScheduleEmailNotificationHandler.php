@@ -12,6 +12,7 @@
 namespace CachetHQ\Cachet\Bus\Handlers\Events\Schedule;
 
 use CachetHQ\Cachet\Bus\Events\Schedule\ScheduleEventInterface;
+use CachetHQ\Cachet\Models\AllowedGroups;
 use CachetHQ\Cachet\Models\Subscriber;
 use CachetHQ\Cachet\Notifications\Schedule\NewScheduleNotification;
 
@@ -55,8 +56,14 @@ class SendScheduleEmailNotificationHandler
             return false;
         }
 
-        // First notify all global subscribers.
-        $globalSubscribers = $this->subscriber->isVerified()->isGlobal()->get()->each(function ($subscriber) use ($schedule) {
+       /* if($schedule->user_groups_id !== 0) {
+            $allowedSubscribers = AllowedGroups::where('users_group_id', '=', $schedule->user_groups_id)->get();
+        } else {*/
+            $allowedSubscribers = Subscriber::all();
+        //}
+
+        // First notify all allowed subscribers.
+        $allowedSubscribers->each(function ($subscriber) use ($schedule) {
             $subscriber->notify(new NewScheduleNotification($schedule));
         });
     }

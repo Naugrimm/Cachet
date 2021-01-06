@@ -154,6 +154,23 @@ return [
             'failure' => 'The metric could not be deleted, please try again.',
         ],
     ],
+    // User groups
+    'user_groups' => [
+        'user_groups' => 'User groups',
+        'add' => [
+            'user_group' => 'Add new group',
+            'title' => 'Add group',
+            'failure' => 'An error occurred while adding the group!',
+            'success' => 'Group was added successfully!'
+        ],
+        'edit' => [
+            'title'   => 'Edit user group',
+            'success' => 'User group updated.',
+            'failure' => 'Something went wrong with the user group, please try again',
+        ],
+        'description' => 'All subscribers that are in a group are getting mail notifications for objects, that are in the same group!'
+    ],
+
     // Subscribers
     'subscribers' => [
         'subscribers'          => 'Subscribers',
@@ -162,7 +179,7 @@ return [
         'verified'             => 'Verified',
         'not_verified'         => 'Not verified',
         'subscriber'           => ':email, subscribed :date',
-        'no_subscriptions'     => 'Subscribed to all updates',
+        'no_subscriptions'     => 'Not added to any group',
         'global'               => 'Globally subscribed',
         'add'                  => [
             'title'   => 'Add a new subscriber',

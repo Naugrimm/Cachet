@@ -33,6 +33,19 @@
                         <label>{{ trans('forms.components.description') }}</label>
                         <textarea name="component[description]" class="form-control" rows="5" placeholder="{{ trans('forms.components.description') }}"></textarea>
                     </div>
+                    @if($userGroups->count() > 0)
+                        <div class="form-group">
+                            <label>{{ trans('forms.components.user_group') }}</label>
+                            <select name="component[user_group_id]" class="form-control">
+                                <option value="0" selected></option>
+                                @foreach($userGroups as $userGroup)
+                                    <option value="{{ $userGroup->id }}">{{ $userGroup->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @else
+                        <input type="hidden" name="component[user_group_id]" value="0">
+                    @endif
                     @if($groups->count() > 0)
                     <div class="form-group">
                         <label>{{ trans('forms.components.group') }}</label>

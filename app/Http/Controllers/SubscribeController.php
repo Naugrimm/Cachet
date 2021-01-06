@@ -21,6 +21,7 @@ use CachetHQ\Cachet\Models\Component;
 use CachetHQ\Cachet\Models\ComponentGroup;
 use CachetHQ\Cachet\Models\Subscriber;
 use CachetHQ\Cachet\Models\Subscription;
+use CachetHQ\Cachet\Models\UserGroup;
 use CachetHQ\Cachet\Notifications\Subscriber\ManageSubscriptionNotification;
 use GrahamCampbell\Binput\Facades\Binput;
 use GrahamCampbell\Markdown\Facades\Markdown;
@@ -93,9 +94,6 @@ class SubscribeController extends Controller
                 ->withErrors($e->getMessageBag());
         }
 
-        // Send the subscriber a link to manage their subscription.
-        $subscription->notify(new ManageSubscriptionNotification());
-
         return cachet_redirect('status-page')
             ->withSuccess(sprintf('%s %s', trans('dashboard.notifications.awesome'), trans('cachet.subscriber.email.subscribed')));
     }
@@ -123,7 +121,7 @@ class SubscribeController extends Controller
             execute(new VerifySubscriberCommand($subscriber));
         }
 
-        return redirect()->to(URL::signedRoute(cachet_route_generator('subscribe.manage'), ['code' => $subscriber->verify_code]))
+        return redirect()->to(URL::signedRoute(cachet_route_generator('status-page'), ['code' => $subscriber->verify_code]))
             ->withSuccess(sprintf('%s %s', trans('dashboard.notifications.awesome'), trans('cachet.subscriber.email.verified')));
     }
 
@@ -173,19 +171,16 @@ class SubscribeController extends Controller
         $includePrivate = $this->auth->check();
 
         $subscriber = Subscriber::where('verify_code', '=', $code)->first();
-        $usedComponentGroups = Component::enabled()->authenticated($includePrivate)->where('group_id', '>', 0)->groupBy('group_id')->pluck('group_id');
-        $componentGroups = ComponentGroup::whereIn('id', $usedComponentGroups)->orderBy('order')->get();
-        $ungroupedComponents = Component::enabled()->authenticated($includePrivate)->where('group_id', '=', 0)->orderBy('order')->orderBy('created_at')->get();
+        $userGroups = UserGroup::all();
 
         if (!$subscriber) {
             throw new BadRequestHttpException();
         }
 
         return View::make('subscribe.manage')
-            ->withUngroupedComponents($ungroupedComponents)
             ->withSubscriber($subscriber)
-            ->withSubscriptions($subscriber->subscriptions->pluck('component_id')->all())
-            ->withComponentGroups($componentGroups);
+            ->withSubscriptions($subscriber->allowedGroups->pluck('user_groups_id')->all())
+            ->withUserGroups($userGroups);
     }
 
     /**

@@ -74,6 +74,7 @@ class Component extends Model implements HasPresenter
         'link',
         'order',
         'group_id',
+        'user_groups_id',
         'enabled',
         'meta',
     ];

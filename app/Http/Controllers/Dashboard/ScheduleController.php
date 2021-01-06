@@ -18,6 +18,8 @@ use CachetHQ\Cachet\Bus\Commands\Schedule\UpdateScheduleCommand;
 use CachetHQ\Cachet\Integrations\Contracts\System;
 use CachetHQ\Cachet\Models\IncidentTemplate;
 use CachetHQ\Cachet\Models\Schedule;
+use CachetHQ\Cachet\Models\User;
+use CachetHQ\Cachet\Models\UserGroup;
 use GrahamCampbell\Binput\Facades\Binput;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;
@@ -80,7 +82,8 @@ class ScheduleController extends Controller
         return View::make('dashboard.maintenance.add')
             ->withPageTitle(trans('dashboard.schedule.add.title').' - '.trans('dashboard.dashboard'))
             ->withIncidentTemplates($incidentTemplates)
-            ->withNotificationsEnabled($this->system->canNotifySubscribers());
+            ->withNotificationsEnabled($this->system->canNotifySubscribers())
+            ->withUserGroups(UserGroup::all());
     }
 
     /**
@@ -90,9 +93,11 @@ class ScheduleController extends Controller
      */
     public function addScheduleAction()
     {
+        //dd(Binput::get('user_group_id'));
         try {
             execute(new CreateScheduleCommand(
                 Binput::get('name'),
+                Binput::get('user_group_id'),
                 Binput::get('message', null, false, false),
                 Binput::get('status', Schedule::UPCOMING),
                 Binput::get('scheduled_at'),

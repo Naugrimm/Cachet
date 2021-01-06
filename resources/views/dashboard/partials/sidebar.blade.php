@@ -53,6 +53,12 @@
                     <span>{{ trans('dashboard.metrics.metrics') }}</span>
                 </a>
             </li>
+            <li {!! set_active('dashboard/user_groups*') !!}>
+                <a href="{{ cachet_route('dashboard.user_groups') }}">
+                    <i class="ion ion-ios-people-outline"></i>
+                    <span>{{ trans('dashboard.user_groups.user_groups') }}</span>
+                </a>
+            </li>
             <li {!! set_active('dashboard/subscribers*') !!}>
                 <a href="{{ cachet_route('dashboard.subscribers') }}">
                     <i class="ion ion-ios-email-outline"></i>

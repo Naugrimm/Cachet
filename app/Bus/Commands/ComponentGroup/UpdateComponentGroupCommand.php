@@ -78,12 +78,13 @@ final class UpdateComponentGroupCommand
      *
      * @return void
      */
-    public function __construct(ComponentGroup $group, $name, $order, $collapsed, $visible)
+    public function __construct(ComponentGroup $group, $name, $order, $collapsed, $user_group_id, $visible)
     {
         $this->group = $group;
         $this->name = $name;
         $this->order = (int) $order;
         $this->collapsed = $collapsed;
+        $this->user_group_id = $user_group_id;
         $this->visible = (int) $visible;
     }
 }

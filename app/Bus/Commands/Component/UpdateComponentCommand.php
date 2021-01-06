@@ -126,7 +126,7 @@ final class UpdateComponentCommand
      *
      * @return void
      */
-    public function __construct(Component $component, $name = null, $description = null, $status = null, $link = null, $order = null, $group_id = null, $enabled = null, $meta = null, $tags = null, $silent = null)
+    public function __construct(Component $component, $name = null, $description = null, $status = null, $link = null, $order = null, $group_id = null, $user_group_id = null, $enabled = null, $meta = null, $tags = null, $silent = null)
     {
         $this->component = $component;
         $this->name = $name;
@@ -135,6 +135,7 @@ final class UpdateComponentCommand
         $this->link = $link;
         $this->order = $order;
         $this->group_id = $group_id;
+        $this->user_group_id = $user_group_id;
         $this->enabled = $enabled;
         $this->meta = $meta;
         $this->tags = $tags;

@@ -37,6 +37,20 @@ class SubscribeRoutes
     public function map(Registrar $router)
     {
         $router->group([
+            'middleware' => ['auth'],
+
+        ], function (Registrar $router) {
+            $router->get('subscribe/manage/{code}', [
+                'as'         => 'get:subscribe.manage',
+                'uses'       => 'SubscribeController@showManage',
+            ]);
+            $router->post('subscribe/manage/{code}', [
+                'as'   => 'post:subscribe.manage',
+                'uses' => 'SubscribeController@postManage',
+            ]);
+        });
+
+        $router->group([
             'middleware' => ['ready', 'localize', 'subscribers'],
         ], function (Registrar $router) {
             $router->get('subscribe', [
@@ -46,16 +60,6 @@ class SubscribeRoutes
             $router->post('subscribe', [
                 'as'   => 'post:subscribe',
                 'uses' => 'SubscribeController@postSubscribe',
-            ]);
-
-            $router->get('subscribe/manage/{code}', [
-                'as'         => 'get:subscribe.manage',
-                'middleware' => ['signed'],
-                'uses'       => 'SubscribeController@showManage',
-            ]);
-            $router->post('subscribe/manage/{code}', [
-                'as'   => 'post:subscribe.manage',
-                'uses' => 'SubscribeController@postManage',
             ]);
 
             $router->get('subscribe/verify/{code}', [

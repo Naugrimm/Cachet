@@ -13,7 +13,9 @@ namespace CachetHQ\Cachet\Bus\Handlers\Events\Incident;
 
 use CachetHQ\Cachet\Bus\Events\Incident\IncidentWasCreatedEvent;
 use CachetHQ\Cachet\Integrations\Contracts\System;
+use CachetHQ\Cachet\Models\AllowedGroups;
 use CachetHQ\Cachet\Models\Subscriber;
+use Illuminate\Database\Eloquent\Builder;
 use CachetHQ\Cachet\Notifications\Incident\NewIncidentNotification;
 
 class SendIncidentEmailNotificationHandler
@@ -66,28 +68,21 @@ class SendIncidentEmailNotificationHandler
             return;
         }
 
-        // First notify all global subscribers.
-        $globalSubscribers = $this->subscriber->isVerified()->isGlobal()->get();
+        if ($incident->user_groups_id == 0) {
+            $allowedSubscribers = Subscriber::get();
+        } else {
+            $allowedSubscribers = Subscriber::whereHas('allowedGroups', function (Builder $query) use($incident) {
+                $query->where('user_groups_id', '=', $incident->user_groups_id);
+            })->get();
+        }
 
-        $globalSubscribers->each(function ($subscriber) use ($incident) {
+        // notify subscribers.
+        $allowedSubscribers->each(function ($subscriber) use ($incident) {
             $subscriber->notify(new NewIncidentNotification($incident));
         });
 
         if (!$incident->component) {
             return;
         }
-
-        $notified = $globalSubscribers->pluck('id')->all();
-
-        // Notify the remaining component specific subscribers.
-        $componentSubscribers = $this->subscriber
-            ->isVerified()
-            ->forComponent($incident->component->id)
-            ->get()
-            ->reject(function ($subscriber) use ($notified) {
-                return in_array($subscriber->id, $notified);
-            })->each(function ($subscriber) use ($incident) {
-                $subscriber->notify(new NewIncidentNotification($incident));
-            });
     }
 }

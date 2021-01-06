@@ -16,6 +16,7 @@ use CachetHQ\Cachet\Integrations\Contracts\System;
 use CachetHQ\Cachet\Models\Component;
 use CachetHQ\Cachet\Models\Subscriber;
 use CachetHQ\Cachet\Notifications\Component\ComponentStatusChangedNotification;
+use Illuminate\Database\Eloquent\Builder;
 
 class SendComponentUpdateEmailNotificationHandler
 {
@@ -67,25 +68,16 @@ class SendComponentUpdateEmailNotificationHandler
             return;
         }
 
-        // First notify all global subscribers.
-        $globalSubscribers = $this->subscriber->isVerified()->isGlobal()->get();
+        if ($component->user_groups_id == 0) {
+            $allowedSubscribers = Subscriber::get();
+        } else {
+            $allowedSubscribers = Subscriber::whereHas('allowedGroups', function (Builder $query) use($component) {
+                $query->where('user_groups_id', '=', $component->user_groups_id);
+            })->get();
+        }
 
-        $globalSubscribers->each(function ($subscriber) use ($component, $event) {
-            $subscriber->notify(new ComponentStatusChangedNotification($component, $event->new_status));
-        });
-
-        $notified = $globalSubscribers->pluck('id')->all();
-
-        // Notify the remaining component specific subscribers.
-        $componentSubscribers = $this->subscriber
-            ->isVerified()
-            ->forComponent($component->id)
-            ->get()
-            ->reject(function ($subscriber) use ($notified) {
-                return in_array($subscriber->id, $notified);
-            });
-
-        $componentSubscribers->each(function ($subscriber) use ($component, $event) {
+        // notify subscribers.
+        $allowedSubscribers->each(function ($subscriber) use ($component, $event) {
             $subscriber->notify(new ComponentStatusChangedNotification($component, $event->new_status));
         });
     }

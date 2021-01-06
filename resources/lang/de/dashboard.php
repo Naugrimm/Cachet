@@ -138,6 +138,27 @@ return [
             'failure' => 'Die Metrik konnte nicht gelöscht werden. Bitte versuche es erneut.',
         ],
     ],
+    // User groups
+    'user_groups' => [
+        'user_groups' => 'Gruppen',
+        'add' => [
+            'user_group' => 'Neue Gruppe anlegen',
+            'title' => 'Gruppe hinzufügen',
+            'failure' => 'Beim erstellen der Gruppe ist ein Fehler aufgetreten!',
+            'success' => 'Gruppe wurde erstellt!'
+        ],
+        'edit' => [
+            'title'   => 'Benuztergruppe bearbeiten',
+            'success' => 'Benuztergruppe aktualisiert.',
+            'failure' => 'Etwas ist schief gelaufen mit der Benuztergruppe, versuchen sie es erneut.',
+        ],
+        'delete' => [
+            'success' => 'Die Benutzergruppe wurde gelöscht.',
+            'failure' => 'Die Benutzergruppe  konnte nicht gelöscht werden. Bitte versuche es erneut.',
+        ],
+        'description' => 'Alle Abonnenten die einer Gruppe zugeordnet sind, erhalten E-Mail Benachrichtigungen zu Objekten, die der selben Gruppe zugeordnet sind!'
+    ],
+
     // Subscribers
     'subscribers' => [
         'subscribers'      => 'Abonnenten',
@@ -145,7 +166,7 @@ return [
         'verified'         => 'Verifiziert',
         'not_verified'     => 'Nicht verifiziert',
         'subscriber'       => ':email, abonniert am :date',
-        'no_subscriptions' => 'Aktualisierungen per E-Mail abonnieren',
+        'no_subscriptions' => 'Keiner Gruppe zugeordnet',
         'add'              => [
             'title'   => 'Einen neuen Abonnenten hinzufügen',
             'success' => 'Abonnent hinzugefügt.',

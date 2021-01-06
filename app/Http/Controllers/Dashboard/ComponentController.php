@@ -17,6 +17,7 @@ use CachetHQ\Cachet\Bus\Commands\Component\RemoveComponentCommand;
 use CachetHQ\Cachet\Bus\Commands\Component\UpdateComponentCommand;
 use CachetHQ\Cachet\Models\Component;
 use CachetHQ\Cachet\Models\ComponentGroup;
+use CachetHQ\Cachet\Models\UserGroup;
 use GrahamCampbell\Binput\Facades\Binput;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;
@@ -96,7 +97,8 @@ class ComponentController extends Controller
         return View::make('dashboard.components.edit')
             ->withPageTitle($pageTitle)
             ->withComponent($component)
-            ->withGroups($groups);
+            ->withGroups($groups)
+            ->withUserGroups(UserGroup::all());
     }
 
     /**
@@ -119,6 +121,7 @@ class ComponentController extends Controller
                 $componentData['link'],
                 $componentData['order'],
                 $componentData['group_id'],
+                $componentData['user_group_id'],
                 $componentData['enabled'],
                 null, // Meta data cannot be supplied through the dashboard yet.
                 $componentData['tags'], // Meta data cannot be supplied through the dashboard yet.
@@ -144,7 +147,8 @@ class ComponentController extends Controller
     {
         return View::make('dashboard.components.add')
             ->withPageTitle(trans('dashboard.components.add.title').' - '.trans('dashboard.dashboard'))
-            ->withGroups(ComponentGroup::all());
+            ->withGroups(ComponentGroup::all())
+            ->withUserGroups(UserGroup::all());
     }
 
     /**
@@ -164,6 +168,7 @@ class ComponentController extends Controller
                 $componentData['link'],
                 $componentData['order'],
                 $componentData['group_id'],
+                $componentData['user_group_id'],
                 $componentData['enabled'],
                 null, // Meta data cannot be supplied through the dashboard yet.
                 $componentData['tags']

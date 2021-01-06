@@ -35,7 +35,7 @@ class UnsubscribeSubscriberCommandHandler
         $subscriber = $command->subscriber;
 
         // First remove subscriptions.
-        $subscriber->subscriptions()->delete();
+        $subscriber->allowedGroups()->delete();
 
         event(new SubscriberHasUnsubscribedEvent($subscriber));
 

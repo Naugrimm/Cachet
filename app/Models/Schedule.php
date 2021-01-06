@@ -83,6 +83,7 @@ class Schedule extends Model implements HasPresenter
         'name',
         'message',
         'status',
+        'user_groups_id',
         'scheduled_at',
         'completed_at',
         'created_at',

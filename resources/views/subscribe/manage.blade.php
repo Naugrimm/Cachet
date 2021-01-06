@@ -18,45 +18,13 @@
         </div>
         <form action="{{ URL::signedRoute(cachet_route_generator('subscribe.manage'), ['code' => $subscriber->verify_code]) }}" method="post">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            @if($componentGroups->isNotEmpty() || $ungroupedComponents->isNotEmpty())
-            @foreach($componentGroups as $componentGroup)
+            @if($userGroups->isNotEmpty())
             <ul class="list-group">
-                @if($componentGroup->enabled_components()->count() > 0)
-                    <li class="list-group-item group-name">
-                        <i class="{{ $componentGroup->collapse_class_with_subscriptions($subscriptions) }} group-toggle"></i>
-                        <strong>{{ $componentGroup->name }}</strong>
-                        <div class="pull-right text-muted small">
-                            <a href="javascript: void(0);" class="select-group" id="select-all-{{$componentGroup->id}}">{{ trans('cachet.components.select_all') }}</a>
-                            &nbsp;|&nbsp;
-                            <a href="javascript: void(0);" class="deselect-group" id="deselect-all-{{$componentGroup->id}}">{{ trans('cachet.components.deselect_all') }}</a>
-                        </div>
-                    </li>
-                    <div class="form-group group-items {{ $componentGroup->has_subscriber($subscriptions) ? null : "hide" }}">
-                        @foreach($componentGroup->enabled_components()->orderBy('order')->get() as $component)
-                        @include('partials.component_input', compact($component))
-                        @endforeach
-                    </div>
-                @endif
-            </ul>
-            @endforeach
 
-            @if($ungroupedComponents->isNotEmpty())
-            <ul class="list-group">
-                <div class="list-group-item group-name">
-                    <strong>{{ trans('cachet.components.group.other') }}</strong>
-                    <div class="pull-right text-muted small">
-                        <a href="javascript: void(0);" class="select-group" id="select-all-{{$componentGroup->id}}">{{ trans('cachet.components.select_all') }}</a>
-                        &nbsp;|&nbsp;
-                        <a href="javascript: void(0);" class="deselect-group" id="deselect-all-{{$componentGroup->id}}">{{ trans('cachet.components.deselect_all') }}</a>
-                    </div>
-                </div>
-                @foreach($ungroupedComponents as $component)
-                @include('partials.component_input', compact($component))
+                @foreach($userGroups as $userGroup)
+                @include('partials.usergroup_input', compact($userGroup))
                 @endforeach
             </ul>
-            @endif
-            @else
-            <p>{{ trans('cachet.subscriber.manage.no_subscriptions') }}</p>
             @endif
 
             <div class="text-right">

@@ -29,9 +29,10 @@ class SubscriberController extends Controller
      */
     public function showSubscribers()
     {
+        //paginate(15);
         return View::make('dashboard.subscribers.index')
             ->withPageTitle(trans('dashboard.subscribers.subscribers').' - '.trans('dashboard.dashboard'))
-            ->withSubscribers(Subscriber::with('subscriptions.component')->get());
+            ->withSubscribers(Subscriber::with('allowedGroups')->get());
     }
 
     /**

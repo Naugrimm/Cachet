@@ -93,6 +93,19 @@
                             </select>
                         </div>
                         @endif
+                        @if($userGroups->count() > 0)
+                            <div class="form-group">
+                                <label>{{ trans('forms.components.user_group') }}</label> <small class="text-muted">{{ trans('forms.optional') }}</small>
+                                <select name="user_group_id" class="form-control">
+                                    <option value="0" selected></option>
+                                    @foreach($userGroups as $userGroup)
+                                        <option value="{{ $userGroup->id }}">{{ $userGroup->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        @else
+                            <input type="hidden" name="user_group_id" value="0">
+                        @endif
                         <div class="form-group" id="component-status" v-if="component.id">
                             <label>{{ trans('forms.incidents.component_status') }}</label>
                             <div class="panel panel-default">

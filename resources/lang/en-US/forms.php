@@ -87,6 +87,7 @@ return [
         'name'        => 'Name',
         'status'      => 'Status',
         'group'       => 'Group',
+        'user_group'  => 'Usergroup',
         'description' => 'Description',
         'link'        => 'Link',
         'tags'        => 'Tags',

@@ -20,6 +20,7 @@ use CachetHQ\Cachet\Models\Component;
 use CachetHQ\Cachet\Models\ComponentGroup;
 use CachetHQ\Cachet\Models\Incident;
 use CachetHQ\Cachet\Models\IncidentTemplate;
+use CachetHQ\Cachet\Models\UserGroup;
 use GrahamCampbell\Binput\Facades\Binput;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Routing\Controller;
@@ -94,7 +95,8 @@ class IncidentController extends Controller
             ->withComponentsInGroups(ComponentGroup::with('components')->get())
             ->withComponentsOutGroups(Component::where('group_id', '=', 0)->get())
             ->withNotificationsEnabled($this->system->canNotifySubscribers())
-            ->withIncidentTemplates(IncidentTemplate::all());
+            ->withIncidentTemplates(IncidentTemplate::all())
+            ->withUserGroups(UserGroup::all());
     }
 
     /**
@@ -119,6 +121,7 @@ class IncidentController extends Controller
         try {
             $incident = execute(new CreateIncidentCommand(
                 Binput::get('name'),
+                Binput::get('user_group_id'),
                 Binput::get('status'),
                 Binput::get('message', null, false, false),
                 Binput::get('visible', true),

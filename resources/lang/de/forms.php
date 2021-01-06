@@ -62,6 +62,7 @@ return [
         'name'        => 'Name',
         'status'      => 'Status',
         'group'       => 'Gruppe',
+        'user_group' => 'Benutzergruppe',
         'description' => 'Beschreibung',
         'link'        => 'Link',
         'tags'        => 'Schlagwörter',

@@ -68,11 +68,12 @@ final class CreateComponentGroupCommand
      *
      * @return void
      */
-    public function __construct($name, $order, $collapsed, $visible)
+    public function __construct($name, $order, $collapsed, $user_group_id, $visible)
     {
         $this->name = $name;
         $this->order = (int) $order;
         $this->collapsed = $collapsed;
+        $this->user_group_id = $user_group_id;
         $this->visible = (int) $visible;
     }
 }
