@@ -87,7 +87,8 @@ class CreateIncidentUpdateCommandHandler
                 $component,
                 null,
                 null,
-                $command->component_status
+                $command->component_status,
+                false
             ));
         }
 

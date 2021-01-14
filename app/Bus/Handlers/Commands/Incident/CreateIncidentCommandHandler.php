@@ -123,7 +123,7 @@ class CreateIncidentCommandHandler
                 null,
                 null,
                 null,
-                false
+                null
             ));
         }
 

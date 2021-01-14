@@ -68,13 +68,34 @@ class SendIncidentEmailNotificationHandler
             return;
         }
 
-        if ($incident->user_groups_id == 0) {
-            $allowedSubscribers = Subscriber::get();
+        $allowedSubscribers = collect();
+
+        if($incident->component != null) {
+                //komponente muss keiner gruppe zugeordnet sein, prüfen
+                if($incident->component->user_groups_id != 0) {
+
+                } else {
+                    if($incident->user_groups_id == 0) {
+                        $allowedSubscribers = Subscriber::whereHas('allowedGroups', function (Builder $query) use ($incident) {
+                            $query->where('user_groups_id', '=', $incident->component->user_groups_id);
+                        })->get();
+                    } else {
+                        $allowedSubscribers = Subscriber::whereHas('allowedGroups', function (Builder $query) use ($incident) {
+                            $query->where('user_groups_id', '=', $incident->user_groups_id)
+                                ->where('user_groups_id', '=', $incident->component->user_groups_id);
+                        })->get();
+                    }
+                }
         } else {
-            $allowedSubscribers = Subscriber::whereHas('allowedGroups', function (Builder $query) use($incident) {
-                $query->where('user_groups_id', '=', $incident->user_groups_id);
-            })->get();
+            if ($incident->user_groups_id == 0) {
+                $allowedSubscribers = Subscriber::get();
+            } else {
+                $allowedSubscribers = Subscriber::whereHas('allowedGroups', function (Builder $query) use($incident) {
+                    $query->where('user_groups_id', '=', $incident->user_groups_id);
+                })->get();
+            }
         }
+
 
         // notify subscribers.
         $allowedSubscribers->each(function ($subscriber) use ($incident) {

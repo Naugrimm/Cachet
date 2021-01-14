@@ -92,6 +92,23 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="form-group" id="component-status" v-if="component.id">
+                            <label>{{ trans('forms.incidents.component_status') }}</label>
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="radio-items">
+                                        @foreach(trans('cachet.components.status') as $statusID => $status)
+                                            <div class="radio-inline">
+                                                <label>
+                                                    <input type="radio" name="component_status" value="{{ $statusID }}" v-model="component.status">
+                                                    {{ $status }}
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         @endif
                         @if($userGroups->count() > 0)
                             <div class="form-group">
@@ -106,23 +123,6 @@
                         @else
                             <input type="hidden" name="user_group_id" value="0">
                         @endif
-                        <div class="form-group" id="component-status" v-if="component.id">
-                            <label>{{ trans('forms.incidents.component_status') }}</label>
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                    <div class="radio-items">
-                                        @foreach(trans('cachet.components.status') as $statusID => $status)
-                                        <div class="radio-inline">
-                                            <label>
-                                                <input type="radio" name="component_status" value="{{ $statusID }}" v-model="component.status">
-                                                {{ $status }}
-                                            </label>
-                                        </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="form-group">
                             <label>{{ trans('forms.incidents.message') }}</label>
                             <div class="markdown-control">

@@ -136,7 +136,7 @@ final class CreateIncidentCommand
      * @param string|null $occurred_at
      * @param string|null $template
      * @param array       $template_vars
-     * @param array       $meta
+     //* @param array       $meta
      *
      * @return void
      */

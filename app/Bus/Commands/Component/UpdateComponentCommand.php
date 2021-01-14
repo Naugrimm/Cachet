@@ -123,10 +123,11 @@ final class UpdateComponentCommand
      * @param array|null                        $meta
      * @param string|null                       $tags
      * @param bool                              $silent
+     * @param bool                              $updatedEvent
      *
      * @return void
      */
-    public function __construct(Component $component, $name = null, $description = null, $status = null, $link = null, $order = null, $group_id = null, $user_group_id = null, $enabled = null, $meta = null, $tags = null, $silent = null)
+    public function __construct(Component $component, $name = null, $description = null, $status = null, $updatedEvent = true, $link = null, $order = null, $group_id = null, $user_group_id = null, $enabled = null, $meta = null, $tags = null, $silent = null)
     {
         $this->component = $component;
         $this->name = $name;
@@ -141,5 +142,6 @@ final class UpdateComponentCommand
         $this->tags = $tags;
         $this->silent = $silent;
         $this->tags = $tags;
+        $this->updatedEvent = $updatedEvent;
     }
 }

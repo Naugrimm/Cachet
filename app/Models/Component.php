@@ -132,6 +132,16 @@ class Component extends Model implements HasPresenter
     }
 
     /**
+     * Get the User groupgroup relation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function userGroup()
+    {
+        return $this->belongsTo(UserGroup::class, 'user_groups_id', 'id');
+    }
+
+    /**
      * Get the incidents relation.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
