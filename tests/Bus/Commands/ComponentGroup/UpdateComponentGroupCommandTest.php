@@ -34,6 +34,7 @@ class UpdateComponentGroupCommandTest extends AbstractTestCase
             'name'      => 'Foo',
             'order'     => 1,
             'collapsed' => 2,
+            'user_groups_id' => null,
             'visible'   => ComponentGroup::VISIBLE_AUTHENTICATED,
         ];
         $object = new UpdateComponentGroupCommand(
@@ -41,6 +42,7 @@ class UpdateComponentGroupCommandTest extends AbstractTestCase
             $params['name'],
             $params['order'],
             $params['collapsed'],
+            $params['user_groups_id'],
             $params['visible']
         );
 

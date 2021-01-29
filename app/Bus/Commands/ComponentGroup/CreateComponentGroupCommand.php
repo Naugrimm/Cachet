@@ -39,6 +39,14 @@ final class CreateComponentGroupCommand
      */
     public $collapsed;
 
+
+    /**
+     * The user group.
+     *
+     * @var null|int
+     */
+    public $user_groups_id;
+
     /**
      * Is the component visible to public?
      *
@@ -64,16 +72,17 @@ final class CreateComponentGroupCommand
      * @param string $name
      * @param int    $order
      * @param int    $collapsed
+     * @param null|int $user_group_id
      * @param int    $visible
      *
      * @return void
      */
-    public function __construct($name, $order, $collapsed, $user_group_id, $visible)
+    public function __construct($name, $order, $collapsed, $user_groups_id, $visible)
     {
         $this->name = $name;
         $this->order = (int) $order;
         $this->collapsed = $collapsed;
-        $this->user_group_id = $user_group_id;
+        $this->user_groups_id = $user_groups_id;
         $this->visible = (int) $visible;
     }
 }

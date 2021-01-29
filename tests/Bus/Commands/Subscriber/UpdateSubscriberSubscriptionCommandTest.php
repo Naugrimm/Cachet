@@ -28,8 +28,8 @@ class UpdateSubscriberSubscriptionCommandTest extends AbstractTestCase
 
     protected function getObjectAndParams()
     {
-        $params = ['subscriber' => new Subscriber(), 'subscriptions' => null];
-        $object = new UpdateSubscriberSubscriptionCommand($params['subscriber'], $params['subscriptions']);
+        $params = ['subscriber' => new Subscriber(), 'allowedGroups' => null];
+        $object = new UpdateSubscriberSubscriptionCommand($params['subscriber'], $params['allowedGroups']);
 
         return compact('params', 'object');
     }

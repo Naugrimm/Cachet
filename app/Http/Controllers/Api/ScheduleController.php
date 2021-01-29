@@ -69,6 +69,7 @@ class ScheduleController extends AbstractApiController
         try {
             $schedule = execute(new CreateScheduleCommand(
                 Binput::get('name'),
+                null,
                 Binput::get('message', null, false, false),
                 Binput::get('status'),
                 Binput::get('scheduled_at'),

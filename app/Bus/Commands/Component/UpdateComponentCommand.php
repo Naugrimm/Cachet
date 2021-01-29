@@ -43,6 +43,14 @@ final class UpdateComponentCommand
      */
     public $status;
 
+
+    /**
+     * The updated event status.
+     *
+     * @var bool
+     */
+    public $updatedEvent;
+
     /**
      * The component link.
      *
@@ -63,6 +71,13 @@ final class UpdateComponentCommand
      * @var int|null
      */
     public $group_id;
+
+    /**
+     * The user group.
+     *
+     * @var int|null
+     */
+    public $user_group_id;
 
     /**
      * Is the component enabled?
@@ -101,9 +116,11 @@ final class UpdateComponentCommand
         'name'        => 'nullable|string',
         'description' => 'nullable|string',
         'status'      => 'nullable|int|min:0|max:4',
+        'updatedEvent' => 'required|bool',
         'link'        => 'nullable|url',
         'order'       => 'nullable|int',
         'group_id'    => 'nullable|int',
+        'user_group_id'    => 'nullable|int',
         'enabled'     => 'nullable|bool',
         'meta'        => 'nullable|array',
         'silent'      => 'nullable|bool',
@@ -116,14 +133,15 @@ final class UpdateComponentCommand
      * @param string|null                       $name
      * @param string|null                       $description
      * @param int|null                          $status
+     * @param bool                              $updatedEvent
      * @param string|null                       $link
      * @param int|null                          $order
      * @param int|null                          $group_id
+     * @param int|null                          $user_group_id
      * @param bool|null                         $enabled
      * @param array|null                        $meta
      * @param string|null                       $tags
-     * @param bool                              $silent
-     * @param bool                              $updatedEvent
+     * @param bool|null                         $silent
      *
      * @return void
      */
@@ -133,6 +151,7 @@ final class UpdateComponentCommand
         $this->name = $name;
         $this->description = $description;
         $this->status = $status;
+        $this->updatedEvent = $updatedEvent;
         $this->link = $link;
         $this->order = $order;
         $this->group_id = $group_id;
@@ -142,6 +161,5 @@ final class UpdateComponentCommand
         $this->tags = $tags;
         $this->silent = $silent;
         $this->tags = $tags;
-        $this->updatedEvent = $updatedEvent;
     }
 }

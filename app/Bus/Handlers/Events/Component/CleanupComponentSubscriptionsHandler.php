@@ -13,7 +13,6 @@ namespace CachetHQ\Cachet\Bus\Handlers\Events\Component;
 
 use CachetHQ\Cachet\Bus\Events\Component\ComponentWasRemovedEvent;
 use CachetHQ\Cachet\Models\Component;
-use CachetHQ\Cachet\Models\Subscription;
 
 /**
  * This is the cleanup component subscriptions handler.

@@ -17,11 +17,20 @@ class UserGroup extends Model
     ];
 
     /**
+     * The validation rules.
+     *
+     * @var string[]
+     */
+    public $rules = [
+        'userGroupName' => 'required|unique:user_groups',
+    ];
+
+    /**
      * The fillable properties.
      *
      * @var string[]
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['userGroupName'];
 
 
 }

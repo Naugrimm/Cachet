@@ -118,6 +118,7 @@ class ComponentController extends Controller
                 $componentData['name'],
                 $componentData['description'],
                 $componentData['status'],
+                false,
                 $componentData['link'],
                 $componentData['order'],
                 $componentData['group_id'],

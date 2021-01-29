@@ -1,6 +1,6 @@
 <?php
 
-namespace CachetHQ\Cachet\Bus\Commands\UserGroups;
+namespace CachetHQ\Cachet\Bus\Commands\UserGroup;
 
 use CachetHQ\Cachet\Models\UserGroup;
 

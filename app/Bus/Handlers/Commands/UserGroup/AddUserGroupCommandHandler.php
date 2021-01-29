@@ -1,13 +1,13 @@
 <?php
-namespace CachetHQ\Cachet\Bus\Handlers\Commands\UserGroups;
+
+namespace CachetHQ\Cachet\Bus\Handlers\Commands\UserGroup;
 
 use CachetHQ\Cachet\Bus\Commands\Subscriber\SubscribeSubscriberCommand;
 use CachetHQ\Cachet\Bus\Commands\Subscriber\VerifySubscriberCommand;
-use CachetHQ\Cachet\Bus\Commands\UserGroups\UpdateUserGroupCommand;
+use CachetHQ\Cachet\Bus\Commands\UserGroup\AddUserGroupCommand;
 use CachetHQ\Cachet\Bus\Events\Subscriber\SubscriberHasSubscribedEvent;
 use CachetHQ\Cachet\Models\Component;
 use CachetHQ\Cachet\Models\Subscriber;
-use CachetHQ\Cachet\Models\Subscription;
 use CachetHQ\Cachet\Models\User;
 use CachetHQ\Cachet\Models\UserGroup;
 use CachetHQ\Cachet\Notifications\Subscriber\VerifySubscriptionNotification;
@@ -19,23 +19,23 @@ use CachetHQ\Cachet\Notifications\Subscriber\VerifySubscriptionNotification;
  * @author Joseph Cohen <joe@alt-three.com>
  * @author Graham Campbell <graham@alt-three.com>
  */
-class UpdateUserGroupCommandHandler
+class AddUserGroupCommandHandler
 {
     /**
      * Handle the subscribe subscriber command.
      *
-     * @param \CachetHQ\Cachet\Bus\Commands\UserGroups\UpdateUserGroupCommand $command
+     * @param \CachetHQ\Cachet\Bus\Commands\UserGroup\AddUserGroupCommand $command
      *
      * @return \CachetHQ\Cachet\Models\UserGroup
      */
-    public function handle(UpdateUserGroupCommand $command)
+    public function handle(AddUserGroupCommand $command)
     {
-        $userGroup = $command->userGroup;
-        $name = $command->name;
+        if ($subscriber = UserGroup::where('name', '=', $command->name)->first()) {
+            return $subscriber;
+        }
 
-        $userGroup->name = $name;
-        $userGroup->save();
+        $subscriber = UserGroup::firstOrCreate(['name' => $command->name]);
 
-        return $userGroup;
+        return $subscriber;
     }
 }

@@ -38,7 +38,7 @@ final class UpdateSubscriberSubscriptionCommand
      * Create a new subscribe subscriber command instance.
      *
      * @param \CachetHQ\Cachet\Models\Subscriber $subscriber
-     * @param null|array                         $subscriptions
+     * @param null|array                         $allowedGroups
      *
      * @return void
      */

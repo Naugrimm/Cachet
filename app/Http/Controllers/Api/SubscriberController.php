@@ -54,7 +54,7 @@ class SubscriberController extends AbstractApiController
             $subscriber = execute(new SubscribeSubscriberCommand(
                 Binput::get('email'),
                 $verified,
-                Binput::get('components', null),
+                Binput::get('allowedGroups', null),
                 // set the privacy statement to "accepted" when it is not given in the input
                 // and the privacy_statement setting is empty
                 Binput::get('acceptPrivacyStatement', !Config::get('setting.privacy_statement'))

@@ -91,7 +91,7 @@ class CreateScheduleCommandHandler
 
         $params = [
             'name'         => $command->name,
-            'user_groups_id' => $command->user_group_id,
+            'user_groups_id' => $command->user_groups_id,
             'message'      => $command->message,
             'status'       => $command->status,
             'scheduled_at' => $scheduledAt,

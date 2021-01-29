@@ -14,13 +14,11 @@ namespace CachetHQ\Cachet\Http\Controllers;
 use AltThree\Validator\ValidationException;
 use CachetHQ\Cachet\Bus\Commands\Subscriber\SubscribeSubscriberCommand;
 use CachetHQ\Cachet\Bus\Commands\Subscriber\UnsubscribeSubscriberCommand;
-use CachetHQ\Cachet\Bus\Commands\Subscriber\UnsubscribeSubscriptionCommand;
 use CachetHQ\Cachet\Bus\Commands\Subscriber\UpdateSubscriberSubscriptionCommand;
 use CachetHQ\Cachet\Bus\Commands\Subscriber\VerifySubscriberCommand;
 use CachetHQ\Cachet\Models\Component;
 use CachetHQ\Cachet\Models\ComponentGroup;
 use CachetHQ\Cachet\Models\Subscriber;
-use CachetHQ\Cachet\Models\Subscription;
 use CachetHQ\Cachet\Models\UserGroup;
 use CachetHQ\Cachet\Notifications\Subscriber\ManageSubscriptionNotification;
 use GrahamCampbell\Binput\Facades\Binput;
@@ -146,7 +144,8 @@ class SubscribeController extends Controller
         }
 
         if ($subscription) {
-            execute(new UnsubscribeSubscriptionCommand(Subscription::forSubscriber($subscriber->id)->firstOrFail()));
+            //lala
+            //execute(new UnsubscribeSubscriptionCommand(Subscription::forSubscriber($subscriber->id)->firstOrFail()));
         } else {
             execute(new UnsubscribeSubscriberCommand($subscriber));
         }

@@ -61,6 +61,13 @@ final class CreateComponentCommand
     public $group_id;
 
     /**
+     * The component user group.
+     *
+     * @var int
+     */
+    public $user_group_id;
+
+    /**
      * Is the component enabled?
      *
      * @var bool
@@ -107,6 +114,7 @@ final class CreateComponentCommand
      * @param string      $link
      * @param int         $order
      * @param int         $group_id
+     * @param int         $user_group_id
      * @param bool        $enabled
      * @param array|null  $meta
      * @param string|null $tags

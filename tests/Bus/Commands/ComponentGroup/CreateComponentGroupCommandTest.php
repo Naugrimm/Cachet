@@ -33,6 +33,7 @@ class CreateComponentGroupCommandTest extends AbstractTestCase
             'name'      => 'Test',
             'order'     => 0,
             'collapsed' => 1,
+            'user_groups_id' => null,
             'visible'   => ComponentGroup::VISIBLE_AUTHENTICATED,
         ];
 
@@ -40,6 +41,7 @@ class CreateComponentGroupCommandTest extends AbstractTestCase
             $params['name'],
             $params['order'],
             $params['collapsed'],
+            $params['user_groups_id'],
             $params['visible']
         );
 

@@ -21,6 +21,8 @@ class AddUserGroupIdToComponentsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('components');
+        Schema::table('components', function (Blueprint $table) {
+            $table->dropColumn('user_groups_id');
+        });
     }
 }

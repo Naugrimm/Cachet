@@ -1,9 +1,9 @@
 <?php
-namespace CachetHQ\Cachet\Bus\Handlers\Commands\UserGroups;
+namespace CachetHQ\Cachet\Bus\Handlers\Commands\UserGroup;
 
 use CachetHQ\Cachet\Bus\Commands\Subscriber\SubscribeSubscriberCommand;
 use CachetHQ\Cachet\Bus\Commands\Subscriber\VerifySubscriberCommand;
-use CachetHQ\Cachet\Bus\Commands\UserGroups\DeleteUserGroupCommand;
+use CachetHQ\Cachet\Bus\Commands\UserGroup\DeleteUserGroupCommand;
 use CachetHQ\Cachet\Bus\Events\Subscriber\SubscriberHasSubscribedEvent;
 use CachetHQ\Cachet\Models\AllowedGroups;
 use CachetHQ\Cachet\Models\Component;
@@ -11,7 +11,6 @@ use CachetHQ\Cachet\Models\ComponentGroup;
 use CachetHQ\Cachet\Models\Incident;
 use CachetHQ\Cachet\Models\Schedule;
 use CachetHQ\Cachet\Models\Subscriber;
-use CachetHQ\Cachet\Models\Subscription;
 use CachetHQ\Cachet\Models\User;
 use CachetHQ\Cachet\Models\UserGroup;
 use CachetHQ\Cachet\Notifications\Subscriber\VerifySubscriptionNotification;

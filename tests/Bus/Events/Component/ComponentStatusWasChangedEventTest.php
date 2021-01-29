@@ -39,8 +39,6 @@ class ComponentStatusWasChangedEventTest extends AbstractComponentEventTestCase
             'verified_at' => '1970-01-01 00:00:00',
         ]);
 
-        $subscriber->subscriptions()->create(['component_id' => $component->id]);
-
         $this->app['events']->fire(new ComponentStatusWasChangedEvent($user, $component, 1, 2, false));
 
         $this->seeMessageFor($subscriber->email);

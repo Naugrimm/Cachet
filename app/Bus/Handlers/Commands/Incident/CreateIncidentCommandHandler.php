@@ -75,7 +75,7 @@ class CreateIncidentCommandHandler
         $data = [
             'user_id'  => $this->auth->user()->id,
             'name'     => $command->name,
-            'user_groups_id' => $command->user_group_id,
+            'user_groups_id' => $command->user_groups_id,
             'status'   => $command->status,
             'visible'  => $command->visible,
             'stickied' => $command->stickied,
@@ -118,7 +118,7 @@ class CreateIncidentCommandHandler
                 null,
                 null,
                 $command->component_status,
-                null,
+                false,
                 null,
                 null,
                 null,

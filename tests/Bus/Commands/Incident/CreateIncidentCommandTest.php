@@ -35,6 +35,7 @@ class CreateIncidentCommandTest extends AbstractTestCase
             'visible'          => 1,
             'component_id'     => 1,
             'component_status' => 1,
+            'user_groups_id' => null,
             'notify'           => false,
             'stickied'         => false,
             'occurred_at'      => null,
@@ -45,6 +46,7 @@ class CreateIncidentCommandTest extends AbstractTestCase
 
         $object = new CreateIncidentCommand(
             $params['name'],
+            $params['user_groups_id'],
             $params['status'],
             $params['message'],
             $params['visible'],

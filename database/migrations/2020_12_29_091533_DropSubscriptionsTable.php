@@ -13,4 +13,16 @@ class DropSubscriptionsTable extends Migration
     {
         Schema::dropIfExists('subscriptions');
     }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down() {
+        Schema::create('subscriptions', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('subscriber_id')->unsigned()->index();
+            $table->integer('component_id')->unsigned()->index();
+            $table->timestamps();
+        });
+    }
 }

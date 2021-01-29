@@ -103,6 +103,7 @@ class MailTest extends AbstractTestCase
 
         dispatch(new CreateIncidentCommand(
             $name,
+            null,
             $this->fakerFactory->numberBetween(0, 3),
             $message,
             true,

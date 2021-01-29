@@ -26,6 +26,13 @@ final class CreateScheduleCommand
     public $name;
 
     /**
+     * The user group.
+     *
+     * @var null|int
+     */
+    public $user_groups_id;
+
+    /**
      * The schedule message.
      *
      * @var string
@@ -86,6 +93,7 @@ final class CreateScheduleCommand
      * Create a new create schedule command instance.
      *
      * @param string $name
+     * @param null|int $user_groups_id
      * @param string $message
      * @param int    $status
      * @param string $scheduled_at
@@ -95,10 +103,10 @@ final class CreateScheduleCommand
      *
      * @return void
      */
-    public function __construct($name, $user_group_id, $message, $status, $scheduled_at, $completed_at, $components, $notify)
+    public function __construct($name, $user_groups_id, $message, $status, $scheduled_at, $completed_at, $components, $notify)
     {
         $this->name = $name;
-        $this->user_group_id = $user_group_id;
+        $this->user_groups_id = $user_groups_id;
         $this->message = $message;
         $this->status = $status;
         $this->scheduled_at = $scheduled_at;

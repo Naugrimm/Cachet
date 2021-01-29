@@ -1,6 +1,6 @@
 <?php
 
-namespace CachetHQ\Cachet\Bus\Commands\UserGroups;
+namespace CachetHQ\Cachet\Bus\Commands\UserGroup;
 
 /**
  * This is the subscribe subscriber command.
@@ -19,20 +19,20 @@ final class AddUserGroupCommand
     /**
      * The validation rules.
      *
-     * @var array
+     * @var string[]
      */
     public $rules = [
         'name' => 'required|unique:user_groups',
     ];
 
     /**
-     * Create a new subscribe subscriber command instance.
+     * Create a new user group instance.
      *
-     * @param string $userGroupName
+     * @param string $name
      *
      */
-    public function __construct(string $userGroupName)
+    public function __construct(string $name)
     {
-        $this->name = $userGroupName;
+        $this->name = $name;
     }
 }

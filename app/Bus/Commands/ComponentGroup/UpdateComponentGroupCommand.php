@@ -49,6 +49,13 @@ final class UpdateComponentGroupCommand
     public $collapsed;
 
     /**
+     * Is the component group collapsed?
+     *
+     * @var null|int
+     */
+    public $user_groups_id;
+
+    /**
      * Is the component visible to public?
      *
      * @var int
@@ -74,17 +81,18 @@ final class UpdateComponentGroupCommand
      * @param string                                 $name
      * @param int                                    $order
      * @param int                                    $collapsed
+     * @param null|int                               $user_groups_id
      * @param int                                    $visible
      *
      * @return void
      */
-    public function __construct(ComponentGroup $group, $name, $order, $collapsed, $user_group_id, $visible)
+    public function __construct(ComponentGroup $group, $name, $order, $collapsed, $user_groups_id, $visible)
     {
         $this->group = $group;
         $this->name = $name;
         $this->order = (int) $order;
         $this->collapsed = $collapsed;
-        $this->user_group_id = $user_group_id;
+        $this->user_groups_id = $user_groups_id;
         $this->visible = (int) $visible;
     }
 }

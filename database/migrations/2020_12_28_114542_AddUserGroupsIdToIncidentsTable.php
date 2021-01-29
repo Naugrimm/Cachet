@@ -21,6 +21,8 @@ class AddUserGroupsIdToIncidentsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('incidents');
+        Schema::table('incidents', function (Blueprint $table) {
+            $table->dropColumn('user_groups_id');
+        });
     }
 }

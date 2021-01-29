@@ -16,7 +16,6 @@ use CachetHQ\Cachet\Bus\Events\Subscriber\SubscriberHasUpdatedSubscriptionsEvent
 use CachetHQ\Cachet\Models\AllowedGroups;
 use CachetHQ\Cachet\Models\Component;
 use CachetHQ\Cachet\Models\Subscriber;
-use CachetHQ\Cachet\Models\Subscription;
 use CachetHQ\Cachet\Models\UserGroup;
 
 /**

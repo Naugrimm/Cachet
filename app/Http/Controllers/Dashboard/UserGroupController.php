@@ -3,10 +3,10 @@
 namespace CachetHQ\Cachet\Http\Controllers\Dashboard;
 
 use AltThree\Validator\ValidationException;
-use CachetHQ\Cachet\Bus\Commands\UserGroups\AddUserGroupCommand;
+use CachetHQ\Cachet\Bus\Commands\UserGroup\AddUserGroupCommand;
 use CachetHQ\Cachet\Bus\Commands\Subscriber\UnsubscribeSubscriberCommand;
-use CachetHQ\Cachet\Bus\Commands\UserGroups\DeleteUserGroupCommand;
-use CachetHQ\Cachet\Bus\Commands\UserGroups\UpdateUserGroupCommand;
+use CachetHQ\Cachet\Bus\Commands\UserGroup\DeleteUserGroupCommand;
+use CachetHQ\Cachet\Bus\Commands\UserGroup\UpdateUserGroupCommand;
 use CachetHQ\Cachet\Models\Subscriber;
 use GrahamCampbell\Binput\Facades\Binput;
 use Illuminate\Contracts\Config\Repository;

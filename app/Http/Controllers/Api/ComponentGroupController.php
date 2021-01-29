@@ -115,6 +115,7 @@ class ComponentGroupController extends AbstractApiController
                 Binput::get('name'),
                 Binput::get('order', 0),
                 Binput::get('collapsed', 0),
+                null,
                 Binput::get('visible', ComponentGroup::VISIBLE_AUTHENTICATED)
             ));
         } catch (QueryException $e) {
@@ -139,6 +140,7 @@ class ComponentGroupController extends AbstractApiController
                 Binput::get('name'),
                 Binput::get('order'),
                 Binput::get('collapsed'),
+                null,
                 Binput::get('visible')
             ));
         } catch (QueryException $e) {

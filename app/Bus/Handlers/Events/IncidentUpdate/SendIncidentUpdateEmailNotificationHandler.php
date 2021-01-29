@@ -14,7 +14,6 @@ namespace CachetHQ\Cachet\Bus\Handlers\Events\IncidentUpdate;
 use CachetHQ\Cachet\Bus\Events\IncidentUpdate\IncidentUpdateWasReportedEvent;
 use CachetHQ\Cachet\Integrations\Contracts\System;
 use CachetHQ\Cachet\Models\Subscriber;
-use CachetHQ\Cachet\Notifications\Incident\NewIncidentNotification;
 use CachetHQ\Cachet\Notifications\IncidentUpdate\IncidentUpdatedNotification;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -65,8 +64,8 @@ class SendIncidentUpdateEmailNotificationHandler
             return;
         }
 
-        if ($incident->user_groups_id == 0) {
-            $allowedSubscribers = Subscriber::get();
+        if ($incident->user_groups_id == null) {
+            $allowedSubscribers = Subscriber::all();
         } else {
             $allowedSubscribers = Subscriber::whereHas('allowedGroups', function (Builder $query) use($incident) {
                 $query->where('user_groups_id', '=', $incident->user_groups_id);
@@ -74,8 +73,8 @@ class SendIncidentUpdateEmailNotificationHandler
         }
 
         // notify subscribers.
-        $allowedSubscribers->each(function ($subscriber) use ($incident) {
-            $subscriber->notify(new NewIncidentNotification($incident));
+        $allowedSubscribers->each(function ($subscriber) use ($update) {
+            $subscriber->notify(new IncidentUpdatedNotification($update));
         });
 
         if (!$incident->component) {

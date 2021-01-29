@@ -21,6 +21,8 @@ class AddUserGroupsIdToSchedulesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('schedules');
+        Schema::table('schedules', function (Blueprint $table) {
+            $table->dropColumn('user_groups_id');
+        });
     }
 }

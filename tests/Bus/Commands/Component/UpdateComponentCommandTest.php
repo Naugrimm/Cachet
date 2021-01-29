@@ -34,13 +34,15 @@ class UpdateComponentCommandTest extends AbstractTestCase
             'name'        => 'Test',
             'description' => 'Foo',
             'status'      => 1,
+            'updatedEvent' => false,
             'link'        => 'https://cachethq.io',
             'order'       => 0,
             'group_id'    => 0,
+            'user_group_id' => 0,
             'enabled'     => true,
             'meta'        => null,
             'tags'        => null,
-            'silent'      => false,
+            'silent'      => false
         ];
 
         $object = new UpdateComponentCommand(
@@ -48,15 +50,18 @@ class UpdateComponentCommandTest extends AbstractTestCase
             $params['name'],
             $params['description'],
             $params['status'],
+            $params['updatedEvent'],
             $params['link'],
             $params['order'],
             $params['group_id'],
+            $params['user_group_id'],
             $params['enabled'],
             $params['meta'],
             $params['tags'],
             $params['silent']
         );
 
+        //dd(compact('params', 'object'));
         return compact('params', 'object');
     }
 

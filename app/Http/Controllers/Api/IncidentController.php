@@ -69,6 +69,7 @@ class IncidentController extends AbstractApiController
         try {
             $incident = execute(new CreateIncidentCommand(
                 Binput::get('name'),
+                null,
                 Binput::get('status'),
                 Binput::get('message', null, false, false),
                 (bool) Binput::get('visible', true),

@@ -61,7 +61,7 @@ final class SubscribeSubscriberCommand
      *
      * @param string     $email
      * @param bool       $verified
-     * @param array|null $subscriptions
+     * @param array|null $allowedGroups
      * @param bool       $acceptPrivacyStatement
      *
      * @return void

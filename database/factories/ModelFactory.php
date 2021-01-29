@@ -19,7 +19,6 @@ use CachetHQ\Cachet\Models\MetricPoint;
 use CachetHQ\Cachet\Models\Schedule;
 use CachetHQ\Cachet\Models\Setting;
 use CachetHQ\Cachet\Models\Subscriber;
-use CachetHQ\Cachet\Models\Subscription;
 use CachetHQ\Cachet\Models\User;
 use Carbon\Carbon;
 
@@ -123,14 +122,14 @@ $factory->define(Subscriber::class, function ($faker) {
         'verified_at' => Carbon::now(),
     ];
 });
-
+/*
 $factory->define(Subscription::class, function ($faker) {
     return [
         'subscriber_id' => factory(Subscriber::class)->create()->id,
         'component_id'  => factory(Component::class)->create()->id,
     ];
 });
-
+*/
 $factory->define(User::class, function ($faker) {
     return [
         'username'       => $faker->userName,

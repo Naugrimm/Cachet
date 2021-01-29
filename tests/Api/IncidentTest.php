@@ -102,6 +102,7 @@ class IncidentTest extends AbstractApiTestCase
             'stickied'         => false,
         ]);
 
+        //dd($response->content());
         $response->assertStatus(200);
         $response->assertJsonFragment(['name' => 'Foo']);
     }

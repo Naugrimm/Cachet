@@ -27,6 +27,13 @@ final class CreateIncidentCommand
     public $name;
 
     /**
+     * The user group id.
+     *
+     * @var null|int
+     */
+    public $user_groups_id;
+
+    /**
      * The incident status.
      *
      * @var int
@@ -126,6 +133,7 @@ final class CreateIncidentCommand
      * Create a new create incident command instance.
      *
      * @param string      $name
+     * @param null|int    $user_groups_id
      * @param int         $status
      * @param string      $message
      * @param int         $visible
@@ -140,10 +148,10 @@ final class CreateIncidentCommand
      *
      * @return void
      */
-    public function __construct($name, $user_group_id, $status, $message, $visible, $component_id, $component_status, $notify, $stickied, $occurred_at, $template, array $template_vars = [], array $meta = [])
+    public function __construct($name, $user_groups_id, $status, $message, $visible, $component_id, $component_status, $notify, $stickied, $occurred_at, $template, array $template_vars = [], array $meta = [])
     {
         $this->name = $name;
-        $this->user_group_id = $user_group_id;
+        $this->user_groups_id = $user_groups_id;
         $this->status = $status;
         $this->message = $message;
         $this->visible = $visible;

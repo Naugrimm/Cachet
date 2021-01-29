@@ -35,6 +35,7 @@ class CreateComponentCommandTest extends AbstractTestCase
             'link'        => 'https://cachethq.io',
             'order'       => 0,
             'group_id'    => 0,
+            'user_group_id' => 0,
             'enabled'     => true,
             'meta'        => null,
             'tags'        => 'Foo, Bar',
@@ -46,6 +47,7 @@ class CreateComponentCommandTest extends AbstractTestCase
             $params['link'],
             $params['order'],
             $params['group_id'],
+            $params['user_group_id'],
             $params['enabled'],
             $params['meta'],
             $params['tags']

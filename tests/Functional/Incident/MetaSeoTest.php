@@ -174,6 +174,7 @@ class MetaSeoTest extends AbstractTestCase
 
         dispatch(new CreateIncidentCommand(
             $name,
+            null,
             $this->fakerFactory->numberBetween(0, 3),
             $message,
             $this->fakerFactory->boolean,

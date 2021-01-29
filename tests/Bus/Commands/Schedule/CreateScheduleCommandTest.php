@@ -29,6 +29,7 @@ class CreateScheduleCommandTest extends AbstractTestCase
     {
         $params = [
             'name'         => 'Test',
+            'user_groups_id' => null,
             'message'      => 'Foo',
             'status'       => 1,
             'scheduled_at' => date('Y-m-d H:i'),
@@ -38,6 +39,7 @@ class CreateScheduleCommandTest extends AbstractTestCase
         ];
         $object = new CreateScheduleCommand(
             $params['name'],
+            $params['user_groups_id'],
             $params['message'],
             $params['status'],
             $params['scheduled_at'],
