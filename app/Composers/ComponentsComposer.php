@@ -15,6 +15,7 @@ use CachetHQ\Cachet\Models\Component;
 use CachetHQ\Cachet\Models\ComponentGroup;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * This is the components composer.
@@ -52,8 +53,17 @@ class ComponentsComposer
      */
     public function compose(View $view)
     {
-        $componentGroups = $this->getVisibleGroupedComponents();
-        $ungroupedComponents = Component::ungrouped()->orderBy('status', 'desc')->get();
+
+        if(Auth::user()) {
+            $componentGroups = $this->getVisibleGroupedComponents();
+            $ungroupedComponents = Component::ungrouped()->orderBy('status', 'desc')->get();
+        }elseif(isset($_SESSION['sp_employee'])) {
+
+        }else {
+            $componentGroups = $this->getVisibleGroupedComponents()->where('user_groups_id', '=', 0);
+            $ungroupedComponents = Component::ungrouped()->where('user_groups_id', '=', 0)->orderBy('status', 'desc')->get();
+        }
+
 
         $view->withComponentGroups($componentGroups)
             ->withUngroupedComponents($ungroupedComponents);

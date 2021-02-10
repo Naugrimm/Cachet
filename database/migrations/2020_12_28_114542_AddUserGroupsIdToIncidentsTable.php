@@ -12,7 +12,7 @@ class AddUserGroupsIdToIncidentsTable extends Migration
     public function up()
     {
         Schema::table('incidents', function (Blueprint $table) {
-            $table->integer('user_groups_id')->nullable()->default(null);
+            $table->integer('user_groups_id')->nullable()->default(0);
         });
     }
 

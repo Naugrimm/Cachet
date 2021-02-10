@@ -12,7 +12,7 @@ class AddUserGroupIdToComponentsTable extends Migration
     public function up()
     {
         Schema::table('components', function (Blueprint $table) {
-            $table->integer('user_groups_id')->nullable()->default(null);
+            $table->integer('user_groups_id')->nullable()->default(0);
         });
     }
 

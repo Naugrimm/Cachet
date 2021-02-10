@@ -72,7 +72,7 @@ final class CreateComponentGroupCommand
      * @param string $name
      * @param int    $order
      * @param int    $collapsed
-     * @param null|int $user_group_id
+     * @param null|int $user_groups_id
      * @param int    $visible
      *
      * @return void

@@ -113,13 +113,27 @@ class StatusPageController extends AbstractApiController
             $nextDate = $startDate->copy()->addDays($appIncidentDays)->toDateString();
         }
 
-        $allIncidents = Incident::with('component', 'updates.incident')
-            ->where('visible', '>=', (int) !Auth::check())->whereBetween('occurred_at', [
-                $endDate->format('Y-m-d').' 00:00:00',
-                $startDate->format('Y-m-d').' 23:59:59',
-            ])->orderBy('occurred_at', 'desc')->get()->groupBy(function (Incident $incident) {
-                return app(DateFactory::class)->make($incident->occurred_at)->toDateString();
-            });
+        if(Auth::user()) {
+            $allIncidents = Incident::with('component', 'updates.incident')
+                ->where('visible', '>=', (int)!Auth::check())->whereBetween('occurred_at', [
+                    $endDate->format('Y-m-d') . ' 00:00:00',
+                    $startDate->format('Y-m-d') . ' 23:59:59',
+                ])->orderBy('occurred_at', 'desc')->get()->groupBy(function (Incident $incident) {
+                    return app(DateFactory::class)->make($incident->occurred_at)->toDateString();
+                });
+        }elseif(isset($_SESSION['sp_employee'])) {
+            //query stuff for sp employees
+        }else {
+            $allIncidents = Incident::with('component', 'updates.incident')
+                ->where('visible', '>=', (int)!Auth::check())
+                ->where('user_groups_id', '=', 0)
+                ->whereBetween('occurred_at', [
+                    $endDate->format('Y-m-d') . ' 00:00:00',
+                    $startDate->format('Y-m-d') . ' 23:59:59',
+                ])->orderBy('occurred_at', 'desc')->get()->groupBy(function (Incident $incident) {
+                    return app(DateFactory::class)->make($incident->occurred_at)->toDateString();
+                });
+        }
 
         if (!$onlyDisruptedDays) {
             $incidentDays = array_pad([], $appIncidentDays, null);

@@ -22,7 +22,7 @@ class UserGroup extends Model
      * @var string[]
      */
     public $rules = [
-        'userGroupName' => 'required|unique:user_groups',
+        'name' => 'required|unique:user_groups',
     ];
 
     /**
@@ -30,7 +30,7 @@ class UserGroup extends Model
      *
      * @var string[]
      */
-    protected $fillable = ['userGroupName'];
+    protected $fillable = ['name'];
 
 
 }
