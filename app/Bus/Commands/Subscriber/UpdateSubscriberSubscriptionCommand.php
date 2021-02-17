@@ -23,7 +23,7 @@ final class UpdateSubscriberSubscriptionCommand
     /**
      * The subscriber email.
      *
-     * @var \CachetHQ\Cachet\Models\Subscriber
+     * @var \CachetHQ\Cachet\Models\Subscriber|\CachetHQ\Cachet\Models\SpEmployees
      */
     public $subscriber;
 
@@ -37,7 +37,7 @@ final class UpdateSubscriberSubscriptionCommand
     /**
      * Create a new subscribe subscriber command instance.
      *
-     * @param \CachetHQ\Cachet\Models\Subscriber $subscriber
+     * @param \CachetHQ\Cachet\Models\Subscriber|\CachetHQ\Cachet\Models\SpEmployees $subscriber
      * @param null|array                         $allowedGroups
      *
      * @return void

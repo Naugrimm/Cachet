@@ -13,15 +13,18 @@ namespace CachetHQ\Cachet\Http\Controllers;
 
 use AltThree\Badger\Facades\Badger;
 use CachetHQ\Cachet\Http\Controllers\Api\AbstractApiController;
+use CachetHQ\Cachet\Models\AllowedGroups;
 use CachetHQ\Cachet\Models\Component;
 use CachetHQ\Cachet\Models\Incident;
 use CachetHQ\Cachet\Models\Metric;
 use CachetHQ\Cachet\Models\Schedule;
+use CachetHQ\Cachet\Models\SpEmployees;
 use CachetHQ\Cachet\Repositories\Metric\MetricRepository;
 use CachetHQ\Cachet\Services\Dates\DateFactory;
 use GrahamCampbell\Binput\Facades\Binput;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
@@ -121,8 +124,21 @@ class StatusPageController extends AbstractApiController
                 ])->orderBy('occurred_at', 'desc')->get()->groupBy(function (Incident $incident) {
                     return app(DateFactory::class)->make($incident->occurred_at)->toDateString();
                 });
-        }elseif(isset($_SESSION['sp_employee'])) {
-            //query stuff for sp employees
+        }elseif(session()->exists('sp_employee')) {
+            $userGroupIds = SpEmployees::find(session()->get('sp_employee'))->allowedGroups()->select('user_groups_id')->get()->pluck('user_groups_id');
+
+            $allIncidents = Incident::with('component', 'updates.incident')
+                ->where('visible', '>=', (int)!Auth::check())
+                ->where(function ($query) use ($userGroupIds) {
+                    $query->where('user_groups_id', '=', 0)
+                        ->orWhereIn('user_groups_id', $userGroupIds);
+                })
+                ->whereBetween('occurred_at', [
+                    $endDate->format('Y-m-d') . ' 00:00:00',
+                    $startDate->format('Y-m-d') . ' 23:59:59',
+                ])->orderBy('occurred_at', 'desc')->get()->groupBy(function (Incident $incident) {
+                    return app(DateFactory::class)->make($incident->occurred_at)->toDateString();
+                });
         }else {
             $allIncidents = Incident::with('component', 'updates.incident')
                 ->where('visible', '>=', (int)!Auth::check())
@@ -167,10 +183,28 @@ class StatusPageController extends AbstractApiController
      *
      * @param \CachetHQ\Cachet\Models\Incident $incident
      *
-     * @return \Illuminate\View\View
+     * @return \Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
     public function showIncident(Incident $incident)
     {
+        if($incident->user_groups_id != 0) {
+            if(Auth::user()) {
+                return View::make('single-incident')->withIncident($incident);
+            }elseif(session()->exists('sp_employee')) {
+                $count = AllowedGroups::where('sp_employees_id', '=', session()->get('sp_employee'))
+                ->where('user_groups_id', '=', $incident->user_groups_id)->get()->count();
+
+                if($count > 0) {
+                    return View::make('single-incident')->withIncident($incident);
+                } else {
+                    return redirect(cachet_route('status-page'));
+                }
+
+            }else {
+                return redirect(cachet_route('status-page'));
+            }
+        }
+
         return View::make('single-incident')->withIncident($incident);
     }
 
@@ -179,10 +213,27 @@ class StatusPageController extends AbstractApiController
      *
      * @param \CachetHQ\Cachet\Models\Schedule $schedule
      *
-     * @return \Illuminate\View\View
+     * @return \Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
     public function showSchedule(Schedule $schedule)
     {
+        if($schedule->user_groups_id != 0) {
+            if(Auth::user()) {
+                return View::make('single-schedule')->withSchedule($schedule);
+            }elseif(session()->exists('sp_employee')) {
+                $count = AllowedGroups::where('sp_employees_id', '=', session()->get('sp_employee'))
+                    ->where('user_groups_id', '=', $schedule->user_groups_id)->get()->count();
+                if($count > 0) {
+                    return View::make('single-schedule')->withSchedule($schedule);
+                } else {
+                    return redirect(cachet_route('status-page'));
+                }
+
+            }else {
+                return redirect(cachet_route('status-page'));
+            }
+        }
+
         return View::make('single-schedule')->withSchedule($schedule);
     }
 
@@ -299,7 +350,18 @@ class StatusPageController extends AbstractApiController
             // In this case, start_date GET parameter means the page
             $page = (int) Binput::get('start_date', 0);
 
-            $allScheduleDays = Schedule::
+            if(Auth::user()) {
+                $schedule = Schedule::query();
+            }elseif(session()->exists('sp_employee')) {
+                $userGroupIds = SpEmployees::find(session()->get('sp_employee'))->allowedGroups()->select('user_groups_id')->get()->pluck('user_groups_id');
+
+                $schedule = Schedule::where('user_groups_id', '=', 0)
+                    ->orWhereIn('user_groups_id', $userGroupIds);
+            } else {
+                $schedule = Schedule::where('user_groups_id', '=', 0);
+            }
+
+            $allScheduleDays = $schedule->
                 select('scheduled_at')
                 ->distinct()
                 ->orderBy('scheduled_at', 'desc')
@@ -324,7 +386,18 @@ class StatusPageController extends AbstractApiController
             $previousDate = $page + 1;
             $nextDate = $page - 1;
         } else {
-            $biggestDate = Schedule::orderBy('scheduled_at', 'desc')->first();
+            if(Auth::user()) {
+                $schedule = Schedule::query();
+            }elseif(session()->exists('sp_employee')) {
+                $userGroupIds = SpEmployees::find(session()->get('sp_employee'))->allowedGroups()->select('user_groups_id')->get()->pluck('user_groups_id');
+
+                $schedule = Schedule::where('user_groups_id', '=', 0)
+                    ->orWhereIn('user_groups_id', $userGroupIds);
+            } else {
+                $schedule = Schedule::where('user_groups_id', '=', 0);
+            }
+
+            $biggestDate = $schedule->orderBy('scheduled_at', 'desc')->first();
             if(!$biggestDate) {
                 $biggestDate = Date::now();
             } else {

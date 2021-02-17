@@ -66,6 +66,13 @@
                     <span class="label label-info">{{ $subscriberCount }}</span>
                 </a>
             </li>
+            <li {!! set_active('dashboard/employees*') !!}>
+                <a href="{{ cachet_route('dashboard.employees') }}">
+                    <i class="ion ion-ios-people-outline"></i>
+                    <span>{{ trans('dashboard.employees.employees') }}</span>
+                    <span class="label label-info">{{ $employeesCount }}</span>
+                </a>
+            </li>
             <li {!! set_active('dashboard/team*') !!}>
                 <a href="{{ cachet_route('dashboard.team') }}">
                     <i class="ion ion-ios-people-outline"></i>

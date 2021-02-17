@@ -198,6 +198,18 @@ return [
         ],
     ],
 
+    'employees' => [
+        'employees' => 'Mitarbeiter',
+        'description' => 'Um die Benutzergruppen eines Mitarbeiters zu bearbeiten, klicke auf "bearbeiten"!',
+        'manage' => [
+            'usergroups' => 'Benutzergruppen',
+            'description' => 'Verwaltung von Benutzergruppen für ',
+            'update_usergroups' => 'Benutzergruppen aktualisieren',
+            'failure' => 'Bei der Aktualisierung der Benutzergruppen ist ein Fehler aufgetreten!',
+            'success' => 'Benutzerngruppen wurden aktualisiert!'
+        ]
+    ],
+
     // Team
     'team' => [
         'team'        => 'Team',

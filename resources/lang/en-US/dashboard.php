@@ -221,6 +221,17 @@ return [
         ],
     ],
 
+    'employees' => [
+        'employees' => 'Employees',
+        'description' => 'To edit usergroups of an user, click on "edit"!',
+        'manage' => [
+            'usergroups' => 'User groups',
+            'description' => 'Management of user groups for ',
+            'failure' => 'An error occurred!',
+            'success' => 'Updated user groups!'
+        ]
+    ],
+
     // Settings
     'settings' => [
         'settings'  => 'Settings',

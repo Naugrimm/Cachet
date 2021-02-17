@@ -12,6 +12,7 @@
 namespace CachetHQ\Cachet\Composers;
 
 use CachetHQ\Cachet\Models\Schedule;
+use CachetHQ\Cachet\Models\SpEmployees;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,7 +35,13 @@ class ScheduledComposer
     {
         if(Auth::user()) {
             $scheduledMaintenance = Schedule::current()->orderBy('scheduled_at')->get();
-        }elseif(isset($_SESSION['sp_employee'])) {
+        }elseif(session()->exists('sp_employee')) {
+            $userGroupIds = SpEmployees::find(session()->get('sp_employee'))->allowedGroups()->select('user_groups_id')->get()->pluck('user_groups_id');
+
+            $scheduledMaintenance = Schedule::current()
+                ->where('user_groups_id', '=', 0)
+                ->orWhereIn('user_groups_id', $userGroupIds)
+                ->orderBy('scheduled_at')->get();
 
         }else {
             $scheduledMaintenance = Schedule::current()->where('user_groups_id', '=', 0)->orderBy('scheduled_at')->get();

@@ -18,6 +18,7 @@ class AllowedGroups extends Model
     protected $casts = [
         'users_id' => 'int',
         'user_groups_id'  => 'int',
+        'sp_employees_id' => 'int'
     ];
 
     /**
@@ -26,6 +27,7 @@ class AllowedGroups extends Model
      * @var string[]
      */
     protected $fillable = [
+        'sp_employees_id',
         'users_id',
         'user_groups_id',
     ];
@@ -36,7 +38,8 @@ class AllowedGroups extends Model
      * @var string[]
      */
     public $rules = [
-        'users_id' => 'required|int',
+        'sp_employees_id' => 'nullable|int',
+        'users_id' => 'nullable|int',
         'user_groups_id'  => 'nullable|int',
     ];
 

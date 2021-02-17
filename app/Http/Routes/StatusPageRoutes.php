@@ -12,6 +12,7 @@
 namespace CachetHQ\Cachet\Http\Routes;
 
 use Illuminate\Contracts\Routing\Registrar;
+use Illuminate\Http\Request;
 
 /**
  * This is the status page routes class.

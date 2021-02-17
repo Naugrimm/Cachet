@@ -13,6 +13,7 @@ namespace CachetHQ\Cachet\Composers;
 
 use CachetHQ\Cachet\Models\Component;
 use CachetHQ\Cachet\Models\ComponentGroup;
+use CachetHQ\Cachet\Models\SpEmployees;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
@@ -57,10 +58,17 @@ class ComponentsComposer
         if(Auth::user()) {
             $componentGroups = $this->getVisibleGroupedComponents();
             $ungroupedComponents = Component::ungrouped()->orderBy('status', 'desc')->get();
-        }elseif(isset($_SESSION['sp_employee'])) {
+        }elseif(session()->exists('sp_employee')) {
+            $userGroupIds = SpEmployees::find(session()->get('sp_employee'))->allowedGroups()->select('user_groups_id')->get()->pluck('user_groups_id');
+
+            $componentGroups = $this->getVisibleGroupedComponents();
+            $ungroupedComponents = Component::ungrouped()
+                ->where('user_groups_id', '=', 0)
+                ->orWhereIn('user_groups_id', $userGroupIds)
+                ->orderBy('status', 'desc')->get();
 
         }else {
-            $componentGroups = $this->getVisibleGroupedComponents()->where('user_groups_id', '=', 0);
+            $componentGroups = $this->getVisibleGroupedComponents();
             $ungroupedComponents = Component::ungrouped()->where('user_groups_id', '=', 0)->orderBy('status', 'desc')->get();
         }
 
@@ -81,7 +89,25 @@ class ComponentsComposer
             $componentGroupsBuilder->visible();
         }
 
-        $usedComponentGroups = Component::grouped()->pluck('group_id');
+        $usedComponentGroups = '';
+
+        if(Auth::user()) {
+            $usedComponentGroups = Component::grouped()->pluck('group_id');
+        }elseif(session()->exists('sp_employee')) {
+            $userGroupIds = SpEmployees::find(session()->get('sp_employee'))->allowedGroups()->select('user_groups_id')->get()->pluck('user_groups_id');
+
+            $componentGroupsBuilder = $componentGroupsBuilder
+                ->where('user_groups_id', '=', 0)
+                ->orWhereIn('user_groups_id', $userGroupIds);
+
+            $usedComponentGroups = Component::where('user_groups_id', '=', 0)
+                ->orWhereIn('user_groups_id', $userGroupIds)->grouped()->pluck('group_id');
+        }else {
+            $componentGroupsBuilder = $componentGroupsBuilder
+                ->where('user_groups_id', '=', 0);
+
+            $usedComponentGroups = Component::where('user_groups_id', '=', 0)->grouped()->pluck('group_id');
+        }
 
         return $componentGroupsBuilder->used($usedComponentGroups)
             ->get();

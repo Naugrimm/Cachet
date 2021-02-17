@@ -36,6 +36,7 @@ class ComponentGroupTest extends AbstractApiTestCase
         $response = $this->json('GET', '/api/v1/components/groups');
 
         $response->assertStatus(200);
+
         $response->assertJsonFragment([
             [
                 'id'                        => $groups[0]->id,
@@ -45,12 +46,13 @@ class ComponentGroupTest extends AbstractApiTestCase
                 'order'                     => $groups[0]->order,
                 'collapsed'                 => $groups[0]->collapsed,
                 'visible'                   => $groups[0]->visible,
-                'user_groups_id'    	    => null,
+                'user_groups_id'    	    => "0",
                 'enabled_components'        => $groups[0]->enabled_components,
                 'enabled_components_lowest' => $groups[0]->enabled_components_lowest,
                 'lowest_human_status'       => $groups[0]->lowest_human_status,
             ],
         ]);
+
         $response->assertJsonFragment([
             [
                 'id'                        => $groups[1]->id,
@@ -60,7 +62,7 @@ class ComponentGroupTest extends AbstractApiTestCase
                 'order'                     => $groups[1]->order,
                 'collapsed'                 => $groups[1]->collapsed,
                 'visible'                   => $groups[1]->visible,
-                'user_groups_id'    	    => null,
+                'user_groups_id'    	    => "0",
                 'enabled_components'        => $groups[1]->enabled_components,
                 'enabled_components_lowest' => $groups[1]->enabled_components_lowest,
                 'lowest_human_status'       => $groups[1]->lowest_human_status,

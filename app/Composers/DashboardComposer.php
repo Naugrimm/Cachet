@@ -15,6 +15,7 @@ use CachetHQ\Cachet\Models\Component;
 use CachetHQ\Cachet\Models\Incident;
 use CachetHQ\Cachet\Models\IncidentTemplate;
 use CachetHQ\Cachet\Models\Schedule;
+use CachetHQ\Cachet\Models\SpEmployees;
 use CachetHQ\Cachet\Models\Subscriber;
 use Illuminate\Contracts\View\View;
 
@@ -62,6 +63,13 @@ class DashboardComposer
     protected $subscriberCount;
 
     /**
+     * The employees count.
+     *
+     * @var int
+     */
+    protected $employeesCount;
+
+    /**
      * Create a new dashboard composer instance.
      *
      * @return void
@@ -87,6 +95,10 @@ class DashboardComposer
         if (is_null($this->subscriberCount)) {
             $this->subscriberCount = Subscriber::isVerified()->count();
         }
+
+        if (is_null($this->employeesCount)) {
+            $this->employeesCount = SpEmployees::count();
+        }
     }
 
     /**
@@ -103,6 +115,7 @@ class DashboardComposer
         $view->withIncidentTemplateCount($this->incidentTemplateCount);
         $view->withScheduleCount($this->scheduleCount);
         $view->withSubscriberCount($this->subscriberCount);
+        $view->withEmployeesCount($this->employeesCount);
         $view->withIsWriteable(is_writable(app()->bootstrapPath().'/cachet'));
     }
 }

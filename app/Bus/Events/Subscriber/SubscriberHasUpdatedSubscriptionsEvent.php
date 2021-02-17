@@ -23,18 +23,18 @@ final class SubscriberHasUpdatedSubscriptionsEvent implements SubscriberEventInt
     /**
      * The subscriber.
      *
-     * @var \CachetHQ\Cachet\Models\Subscriber
+     * @var \CachetHQ\Cachet\Models\Subscriber|\CachetHQ\Cachet\Models\SpEmployees
      */
     public $subscriber;
 
     /**
      * Create a new subscriber has updated subscriptions event instance.
      *
-     * @param \CachetHQ\Cachet\Models\Subscriber $subscriber
+     * @param \CachetHQ\Cachet\Models\Subscriber|\CachetHQ\Cachet\Models\SpEmployees $subscriber
      *
      * @return void
      */
-    public function __construct(Subscriber $subscriber)
+    public function __construct($subscriber)
     {
         $this->subscriber = $subscriber;
     }
