@@ -22,6 +22,22 @@
                 {{ trans('dashboard.subscribers.description') }}
             </p>
 
+            <div class="row">
+                <div class="col-sm-12">
+                    <form name="searchForm" role="form" method="GET" class="form-vertical">
+                        <fieldset><label for="search">E-Mail</label>
+                            <input type="text" name="search" id="search" value="" class="form-control">
+                            <br>
+                        </fieldset>
+                        <div class="form-group">
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-success">suchen</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
             <div class="striped-list">
                 @foreach($subscribers as $subscriber)
                 <div class="row striped-list-item">
@@ -51,6 +67,24 @@
                 </div>
                 @endforeach
             </div>
+            <nav>
+                <ul class="pager">
+                    @if(!$subscribers->onFirstPage())
+                        <li class="previous">
+                            <a href="{{ $subscribers->previousPageUrl() }}" class="links">
+                                <span aria-hidden="true">&larr;</span> {{ trans('pagination.previous') }}
+                            </a>
+                        </li>
+                    @endif
+                    @if($subscribers->hasMorePages())
+                        <li class="next">
+                            <a href="{{ $subscribers->nextPageUrl() }}" class="links">
+                                {{ trans('pagination.next') }} <span aria-hidden="true">&rarr;</span>
+                            </a>
+                        </li>
+                    @endif
+                </ul>
+            </nav>
         </div>
     </div>
 </div>

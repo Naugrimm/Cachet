@@ -17,22 +17,32 @@ use CachetHQ\Cachet\Bus\Commands\Subscriber\UnsubscribeSubscriberCommand;
 use CachetHQ\Cachet\Models\Subscriber;
 use GrahamCampbell\Binput\Facades\Binput;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;
 
 class SubscriberController extends Controller
 {
     /**
+     * @param Request $request
      * Shows the subscribers view.
      *
      * @return \Illuminate\View\View
      */
-    public function showSubscribers()
+    public function showSubscribers(Request $request)
     {
-        //paginate(15);
+        if($request->input('search')) {
+            $search = $request->input('search');
+            $subscribers = Subscriber::where('email', 'LIKE', '%'.$search.'%')
+                ->with('allowedGroups')
+                ->paginate(10)->appends(['search' => $search]);
+        } else {
+            $subscribers = Subscriber::with('allowedGroups')->paginate(10);
+        }
+
         return View::make('dashboard.subscribers.index')
             ->withPageTitle(trans('dashboard.subscribers.subscribers').' - '.trans('dashboard.dashboard'))
-            ->withSubscribers(Subscriber::with('allowedGroups')->get());
+            ->withSubscribers($subscribers);
     }
 
     /**
