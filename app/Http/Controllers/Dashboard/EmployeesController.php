@@ -11,6 +11,7 @@ use CachetHQ\Cachet\Models\UserGroup;
 use GrahamCampbell\Binput\Facades\Binput;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Routing\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -18,15 +19,26 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 class EmployeesController extends Controller
 {
     /**
+     * @param Request $request
      * Shows the subscribers view.
      *
      * @return \Illuminate\View\View
      */
-    public function showEmployees()
+    public function showEmployees(Request $request)
     {
+        if($request->input('search')) {
+            $search = $request->input('search');
+            $employees = SpEmployees::where('username', 'LIKE', '%'.$search.'%')
+                ->orWhere('firstname', 'LIKE', '%'.$search.'%')
+                ->orWhere('lastname', 'LIKE', '%'.$search.'%')
+                ->paginate(10)->appends(['search' => $search]);
+        } else {
+            $employees = SpEmployees::paginate(10);
+        }
+
         return View::make('dashboard.employees.index')
             ->withPageTitle(trans('dashboard.employees.employees').' - '.trans('dashboard.dashboard'))
-            ->withEmployees(SpEmployees::all());
+            ->withEmployees($employees);
     }
 
     /**
@@ -35,7 +47,7 @@ class EmployeesController extends Controller
      */
     public function showEditUserGroups(SpEmployees $employee)
     {
-        $userGroups = UserGroup::all();
+        $userGroups = UserGroup::all()->paginate(15);
 
         if (!$employee) {
             throw new BadRequestHttpException();
