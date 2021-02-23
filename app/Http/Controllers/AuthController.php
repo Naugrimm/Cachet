@@ -135,9 +135,13 @@ class AuthController extends Controller
      */
     public function logoutAction()
     {
-        event(new UserLoggedOutEvent(Auth::user()));
+        if(Auth::user()) {
+            event(new UserLoggedOutEvent(Auth::user()));
 
-        Auth::logout();
+            Auth::logout();
+        } elseif(session()->exists('sp_employee')) {
+            session()->flush();
+        }
 
         return cachet_redirect('status-page');
     }

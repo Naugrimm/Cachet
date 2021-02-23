@@ -297,6 +297,7 @@ return [
         'logged_in'  => 'Sie sind eingeloggt.',
         'welcome'    => 'Willkommen zurück!',
         'two-factor' => 'Bitte geben Sie Ihren Token ein.',
+        'sso' => 'Anmelden mit SSO'
     ],
 
     // Sidebar footer

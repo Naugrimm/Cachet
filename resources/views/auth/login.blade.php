@@ -50,6 +50,16 @@
                     </div>
                 </div>
             </form>
+            @if(config('services.securepoint-corp-sso.enabled'))
+                <div class="row">
+                    <div class="col-xs-2"></div>
+                    <div class="col-xs-9 col-xs-push-1">
+                        <a href="/oauth/corp-sso/">
+                            <button class="btn btn-success btn-lg btn-block btn-trans">{{ trans('dashboard.login.sso') }}</button>
+                        </a>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 </div>

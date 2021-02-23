@@ -51,5 +51,13 @@ return [
     'sparkpost' => [
         'secret' => env('MAIL_PASSWORD'),
     ],
+    'securepoint-corp-sso' => [
+        'enabled' => env('SP_CORP_SSO_ENABLED', false),
+        'client_id' => env('SP_CORP_SSO_CLIENT_ID'),
+        'client_secret' => env('SP_CORP_SSO_CLIENT_SECRET'),
+        'redirect' => env('SP_CORP_SSO_REDIRECT'),
+        'scopes' => env('SP_CORP_SSO_SCOPES', 'openid,profile,email'),
+        'instance_uri' => env('SP_CORP_SSO_INSTANCE_URI'),
+    ],
 
 ];

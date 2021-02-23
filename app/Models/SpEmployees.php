@@ -19,7 +19,7 @@ class SpEmployees extends Model
      * @var string[]
      */
     protected $casts = [
-        'name'  => 'string',
+        'username'  => 'string',
         'firstname' => 'string',
         'lastname' => 'string',
     ];
@@ -30,7 +30,7 @@ class SpEmployees extends Model
      * @var string[]
      */
     public $rules = [
-        'name' => 'nullable|string',
+        'username' => 'nullable|string',
         'firstname' => 'nullable|string',
         'lastname'  => 'nullable|string',
     ];
@@ -40,7 +40,7 @@ class SpEmployees extends Model
      *
      * @var string[]
      */
-    protected $fillable = ['name', 'firstname', 'lastname'];
+    protected $fillable = ['username', 'firstname', 'lastname'];
 
     /**
      * Get the subscriptions relation.

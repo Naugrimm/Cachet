@@ -12,6 +12,7 @@
 namespace CachetHQ\Cachet\Http\Routes;
 
 use Illuminate\Contracts\Routing\Registrar;
+use Illuminate\Routing\Route;
 
 /**
  * This is the auth routes class.
@@ -36,6 +37,18 @@ class AuthRoutes
      */
     public function map(Registrar $router)
     {
+        $router->get('oauth/corp-sso', [
+            'as'         => 'get:sso.login',
+            'middleware' => 'guest',
+            'uses'       => 'SsoController@redirectToProvider',
+        ]);
+
+        $router->get('oauth/corp-sso/callback', [
+            'as'         => 'get:sso.callback',
+            'middleware' => 'guest',
+            'uses'       => 'SsoController@handleProviderCallback',
+        ]);
+
         $router->group([
             'middleware' => ['ready'],
             'prefix'     => 'auth',
@@ -66,7 +79,6 @@ class AuthRoutes
             $router->get('logout', [
                 'as'         => 'get:auth.logout',
                 'uses'       => 'AuthController@logoutAction',
-                'middleware' => 'auth',
             ]);
         });
     }

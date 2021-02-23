@@ -12,6 +12,8 @@
 namespace CachetHQ\Cachet\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use SocialiteProviders\Manager\SocialiteWasCalled;
+use SocialiteProviders\Securepoint\Sso\Corporate\SecurepointCorpSsoExtendSocialite;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -21,6 +23,9 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
+        SocialiteWasCalled::class => [
+            SecurepointCorpSsoExtendSocialite::class.'@handle'
+        ],
         'CachetHQ\Cachet\Bus\Events\ActionInterface' => [
             'CachetHQ\Cachet\Bus\Handlers\Events\ActionStorageHandler',
         ],

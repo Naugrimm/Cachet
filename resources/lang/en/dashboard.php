@@ -303,6 +303,7 @@ return [
         'logged_in'  => 'You\'re logged in.',
         'welcome'    => 'Welcome back!',
         'two-factor' => 'Please enter your token.',
+        'sso' => 'Login using SSO'
     ],
 
     // Sidebar footer
