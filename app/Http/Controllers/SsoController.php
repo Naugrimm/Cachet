@@ -9,7 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
-use Socialite;
+use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -75,7 +75,7 @@ class SsoController extends Controller
 
     /**
      * @param $user
-     * @return User|bool
+     * @return SpEmployees|bool
      */
     public function findUser($user)
     {

@@ -23,9 +23,6 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        SocialiteWasCalled::class => [
-            SecurepointCorpSsoExtendSocialite::class.'@handle'
-        ],
         'CachetHQ\Cachet\Bus\Events\ActionInterface' => [
             'CachetHQ\Cachet\Bus\Handlers\Events\ActionStorageHandler',
         ],
@@ -166,6 +163,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         'Illuminate\Mail\Events\MessageSending' => [
             'CachetHQ\Cachet\Bus\Handlers\Events\MessageSending',
+        ],
+        'SocialiteProviders\Manager\SocialiteWasCalled' => [
+            '\SocialiteProviders\Securepoint\Sso\Corporate\SecurepointCorpSsoExtendSocialite'
         ],
     ];
 }
